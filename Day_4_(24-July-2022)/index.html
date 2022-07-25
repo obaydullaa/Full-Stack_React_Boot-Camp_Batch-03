@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to React</title>
+</head>
+<body>
+
+    <!-- <h1 class="msg">Hello From React</h1> -->
+
+    <div id="main"></div>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>  
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js" integrity="sha512-kp7YHLxuJDJcOzStgd6vtpxr4ZU9kjn77e6dBsivSz+pUuAuMlE2UTdKB7jjsWT84qbS8kdCWHPETnP/ctrFsA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ 
+    <script type="text/babel">
+        //React
+        const GreetMsg = () => {
+            const date = new Date();
+            const year = date.getFullYear();
+            const age = 18;
+            let str = '';
+            if (age >= 18) {
+                str = ' you can vote'
+            }
+
+            return (
+                    <div>
+                        <h2 className="msg">{'Hello From React Element'.toUpperCase()}</h2>
+                        <label html-for="firstName"></label>
+                        <p>{str}</p>
+                        <h3>@copy; | All rights Revers {year}</h3>
+                    </div>
+                )
+
+            // return React.createElement('h1', {className: 'msg'}, 'Hello From React Element')
+        }
+
+
+        //Closing is mandatory
+        //Reserved keyword must be watchout
+        //React Dom 
+        //JSX(javascript syntax XML) - babel
+        ReactDOM.render(<GreetMsg/>, document.getElementById('main'));
+
+    </script>
+</body>
+</html>
