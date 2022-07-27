@@ -1,0 +1,21 @@
+1. when component re-renders ?
+    Ans: State in update, Update in prop & Re-rendering of the parent component
+
+2. when to write state and when to use simple variable ?
+    Ans: State: When we trackl or update Data use state, Normal variable use for data store and simple track.
+3. way of Writing CSS Styles in React component ?
+    a. Importing external css
+    b. Inline Css
+    c. Modules Css
+    d. Component base Css
+
+4. What is JSX, what to remember during writing JSX ?
+    a. Must have a parent elements
+    b. Must use closing tags for every elements
+    c. Must be careful of reserved js keyword  for-html class-className
+    d. User-Defined Components Must Be Capitalized
+    e. Dynamic value (expression) must be written withing.{}
+
+5. how to communicate with parent and children in respective of data
+    a. props
+    b. calback Function
