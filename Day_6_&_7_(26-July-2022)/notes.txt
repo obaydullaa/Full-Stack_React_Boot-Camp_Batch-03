@@ -18,4 +18,4 @@
 
 5. how to communicate with parent and children in respective of data
     a. props
-    b. calback Function
+    b. calback Function.
