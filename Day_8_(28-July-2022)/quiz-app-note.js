@@ -26,3 +26,4 @@
 6. form answer  --->
       const initialQuestionIndex = results[currentQuestionIndex];
       const answers = [initialQuestionIndex.correct_answer, ...initialQuestionIndex.incorrect_answers];
+7. Total Question length show

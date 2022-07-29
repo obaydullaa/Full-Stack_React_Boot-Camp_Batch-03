@@ -26,7 +26,7 @@ function App() {
       <div className="container">
         {!startQuiz && <button onClick={fetchQuiz}>Start Quiz</button>}
         
-        {loaded && <QuestionCard quiz={quizzes[currentQuestionIndex]} currentAnswers={currentAnswers}/>}
+        {loaded && <QuestionCard quiz={quizzes[currentQuestionIndex]} currentAnswers={currentAnswers} currentQuestionIndex={currentQuestionIndex} quizzes={quizzes}/>}
         
       </div>
     </>
