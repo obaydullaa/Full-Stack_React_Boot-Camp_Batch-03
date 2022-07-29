@@ -22,3 +22,7 @@
 2.  Push the api result for track in  setQuizzes state ---> const [quizzes, setQuizzes] = useState(null)
 3. Show question in by index number display we gate state   --> const [currentQuestionIndex, setCurrentQuestionIndex] = useState(null)
 4. Track load      take state -----------------> const const [loaded, setLoaded] = useState(false)
+5. Track answers   take state -----------------> const [currentAnswers, setCurrentAnswers] = useState(false)
+6. form answer  --->
+      const initialQuestionIndex = results[currentQuestionIndex];
+      const answers = [initialQuestionIndex.correct_answer, ...initialQuestionIndex.incorrect_answers];
