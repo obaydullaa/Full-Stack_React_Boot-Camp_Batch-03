@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import QuestionCard from './QuestionCard';
 import shuffle from './utils';
+import './index.css'
 
 function App() {
   const [quizzes, setQuizzes] = useState(null)
@@ -9,6 +10,14 @@ function App() {
   const [startQuiz, setStartQuiz] = useState(false)
   const [currentAnswers, setCurrentAnswers] = useState(false)
   const [endGame, setEndGame] = useState(false)
+  const [totalScore, setTotalScore] = useState(0)
+  const [correctAnswer, setCorrectAnswer] = useState(null)
+
+  const pickAnswer = (answer) => {
+    if(answer === correctAnswer){
+      setTotalScore(prevScore => prevScore + 1)
+    }
+  }
 
   const navigateNext = () => {
     // Another Technic flushSync
@@ -18,6 +27,8 @@ function App() {
       setCurrentQuestionIndex(currentQuizIndex)
       const question = quizzes[currentQuizIndex];
       setCurrentAnswers(shuffle(question))
+      // setting correct answer on question navigation
+      setCorrectAnswer(question.correct_answer);
     }else{
       setEndGame(true)
     }
@@ -33,23 +44,28 @@ function App() {
       const initialQuestion = results[currentQuestionIndex];
       // const answers = [initialQuestionIndex.correct_answer, ...initialQuestionIndex.incorrect_answers];
       setCurrentAnswers(shuffle(initialQuestion))
+      setCorrectAnswer(initialQuestion.correct_answer)
       console.log(results)
    }   
 
   return (
     <>
       <div className="container">
-        {endGame && <h3>Its time to sho Result</h3>}
-        {!startQuiz && <button onClick={fetchQuiz}>Start Quiz</button>}
-        
-        {loaded && !endGame && <QuestionCard 
-        quiz={quizzes[currentQuestionIndex]} 
-        currentAnswers={currentAnswers} 
-        currentQuestionIndex={currentQuestionIndex} 
-        quizzes={quizzes}
-        navigateNext={navigateNext}
-        />}
-        
+          <div className='quiz-wrapper'>
+            {endGame && <h3>Its time to sho Result</h3>}
+            {!startQuiz && <button onClick={fetchQuiz}>Start Quiz</button>}
+            
+              <div className='question-card'>
+                {loaded && !endGame && <QuestionCard 
+                pickAnswer={pickAnswer} 
+                quiz={quizzes[currentQuestionIndex]} 
+                currentAnswers={currentAnswers} 
+                currentQuestionIndex={currentQuestionIndex} 
+                quizzes={quizzes}
+                navigateNext={navigateNext}
+                />}
+              </div>
+          </div>
       </div>
     </>
     

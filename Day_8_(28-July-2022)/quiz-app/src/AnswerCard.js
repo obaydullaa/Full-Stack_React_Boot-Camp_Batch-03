@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function AnswerCard({answer}) {
+export default function AnswerCard({answer, pickAnswer}) {
   return (
     <>
-        <h3>{answer}</h3>
+        <h3 className='quiz-answer' onClick={()=>pickAnswer(answer)}>{answer}</h3>
     </>
   )
 }

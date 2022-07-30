@@ -32,6 +32,9 @@ import QuestionCard from "./quiz-app/src/Questioncard"
 8. Next Quiz button add in QuestionCard component and onClick function ---> <button onClick={navigateNext}>Next Quiz</button>
 9. Take state for endGame and conditionally apply -----> const [endGame, setEndGame] = useState(false)
 
+10.  Track total score ---> const [totalScore, setTotalScore] = useState(0)
+11.  Track total score ---> const [totalScore, setTotalScore] = useState(null)
+
 
 
 

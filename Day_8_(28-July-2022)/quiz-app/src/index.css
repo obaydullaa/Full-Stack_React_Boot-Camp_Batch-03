@@ -11,3 +11,45 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.container {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+button {
+  background: bisque;
+  border: 0;
+  padding: 15px 35px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transform: .3s;
+  margin-top: 15px;
+}
+button:hover {
+  background: rgb(218, 186, 148);
+}
+.correct-answer {
+  background-color: chartreuse;
+}
+
+.incorrect-answer {
+  background-color:brown
+}
+.disabled-answer {
+  pointer-events: none;
+}
+.question-card h3.quiz-answer {
+  background: transparent;
+  cursor: pointer;
+  transition: all ease-out .3s;
+  padding: 5px 0;
+  line-height: 1.1;
+}
+.question-card h3.quiz-answer:hover {
+  background: antiquewhite;
+}
