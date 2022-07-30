@@ -50,17 +50,26 @@ button:hover {
   pointer-events: none;
 }
 
-.question-card h3.quiz-answer {
+.question-card .quiz-answer {
   background: transparent;
   cursor: pointer;
   transition: all ease-out .3s;
-  padding: 5px 0;
+  padding: 8px 0;
   line-height: 1.1;
+  margin: 5px 0;
+  font-size: 17px;
 }
-.question-card h3.quiz-answer:hover {
+.question-card .quiz-answer:hover {
   background: antiquewhite;
 }
 
 h4.question {
   font-size: 18px;
+  background: transparent;
+  cursor: pointer;
+  transition: all ease-out .3s;
+  padding: 5px 0;
+  line-height: 1.1;
+  margin: 5px 0;
+  font-weight: 500;
 }

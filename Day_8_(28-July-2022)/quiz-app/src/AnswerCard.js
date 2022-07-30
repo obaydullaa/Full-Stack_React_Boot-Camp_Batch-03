@@ -18,9 +18,9 @@ export default function AnswerCard({answer, pickAnswer, pickedAnswer, correctAns
   
     return (
     <>
-        <h4 className={`quiz-answer ${correctClass} ${wrongClass} ${disabledClass}`}
+        <p className={`quiz-answer ${correctClass} ${wrongClass} ${disabledClass}`}
         onClick={()=>pickAnswer(answer)} >{answer}
-        </h4>
+        </p>
     </>
   )
 }
