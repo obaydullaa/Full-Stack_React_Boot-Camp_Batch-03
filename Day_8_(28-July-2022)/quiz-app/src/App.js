@@ -8,6 +8,21 @@ function App() {
   const [loaded, setLoaded] = useState(false)
   const [startQuiz, setStartQuiz] = useState(false)
   const [currentAnswers, setCurrentAnswers] = useState(false)
+  const [endGame, setEndGame] = useState(false)
+
+  const navigateNext = () => {
+    // Another Technic flushSync
+    const currentQuizIndex = currentQuestionIndex + 1;
+    const validQuestionIndex = currentQuizIndex < quizzes.length;
+    if(validQuestionIndex){
+      setCurrentQuestionIndex(currentQuizIndex)
+      const question = quizzes[currentQuizIndex];
+      setCurrentAnswers(shuffle(question))
+    }else{
+      setEndGame(true)
+    }
+    
+  }
 
   const fetchQuiz = async () => {
     const res = await fetch('https://opentdb.com/api.php?amount=5&category=18&difficulty=easy&type=multiple')
@@ -26,7 +41,13 @@ function App() {
       <div className="container">
         {!startQuiz && <button onClick={fetchQuiz}>Start Quiz</button>}
         
-        {loaded && <QuestionCard quiz={quizzes[currentQuestionIndex]} currentAnswers={currentAnswers} currentQuestionIndex={currentQuestionIndex} quizzes={quizzes}/>}
+        {loaded && !endGame && <QuestionCard 
+        quiz={quizzes[currentQuestionIndex]} 
+        currentAnswers={currentAnswers} 
+        currentQuestionIndex={currentQuestionIndex} 
+        quizzes={quizzes}
+        navigateNext={navigateNext}
+        />}
         
       </div>
     </>
