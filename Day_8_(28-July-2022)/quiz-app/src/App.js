@@ -39,6 +39,7 @@ function App() {
   return (
     <>
       <div className="container">
+        {endGame && <h3>Its time to sho Result</h3>}
         {!startQuiz && <button onClick={fetchQuiz}>Start Quiz</button>}
         
         {loaded && !endGame && <QuestionCard 
