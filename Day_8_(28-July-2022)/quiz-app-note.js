@@ -35,6 +35,14 @@ import QuestionCard from "./quiz-app/src/Questioncard"
 10.  Track total score ---> const [totalScore, setTotalScore] = useState(0)
 11.  Track total score ---> const [totalScore, setTotalScore] = useState(null)
 
+12. /**
+*  Mark select question right or wrong
+* =========================================
+   1. user selected answer
+   2. picked Answer   track for this state -> 
+   3. correct Answer
+*/
+
 
 
 

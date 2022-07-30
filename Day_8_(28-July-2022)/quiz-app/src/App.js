@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import QuestionCard from './QuestionCard';
+import ScoreCard from './ScoreCard';
 import shuffle from './utils';
 import './index.css'
 
@@ -12,8 +13,10 @@ function App() {
   const [endGame, setEndGame] = useState(false)
   const [totalScore, setTotalScore] = useState(0)
   const [correctAnswer, setCorrectAnswer] = useState(null)
+  const [pickedAnswer, setPickedAnswer] = useState(null)
 
   const pickAnswer = (answer) => {
+    setPickedAnswer(answer)
     if(answer === correctAnswer){
       setTotalScore(prevScore => prevScore + 1)
     }
@@ -27,6 +30,8 @@ function App() {
       setCurrentQuestionIndex(currentQuizIndex)
       const question = quizzes[currentQuizIndex];
       setCurrentAnswers(shuffle(question))
+       // reset picked answer
+       setPickedAnswer(null)
       // setting correct answer on question navigation
       setCorrectAnswer(question.correct_answer);
     }else{
@@ -48,11 +53,23 @@ function App() {
       console.log(results)
    }   
 
+   const resetQuiz = () => {
+    setQuizzes(null)
+    setCurrentQuestionIndex(0)
+    setLoaded(false)
+    setStartQuiz(false)
+    setCurrentAnswers(false)
+    setEndGame(false)
+    setTotalScore(0)
+    setCorrectAnswer(null)
+    setPickedAnswer(null)
+   }
+
   return (
     <>
       <div className="container">
           <div className='quiz-wrapper'>
-            {endGame && <h3>Its time to sho Result</h3>}
+            {endGame && <ScoreCard totalScore={totalScore} resetQuiz={resetQuiz}/>}
             {!startQuiz && <button onClick={fetchQuiz}>Start Quiz</button>}
             
               <div className='question-card'>
@@ -63,6 +80,8 @@ function App() {
                 currentQuestionIndex={currentQuestionIndex} 
                 quizzes={quizzes}
                 navigateNext={navigateNext}
+                correctAnswer={correctAnswer}
+                pickedAnswer={pickedAnswer}
                 />}
               </div>
           </div>

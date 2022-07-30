@@ -17,7 +17,11 @@ code {
   align-items: center;
   text-align: center;
   justify-content: center;
-  margin-top: 50px;
+  width: 500px;
+  margin: 50px auto;
+  border: 1px solid #ddd;
+  padding: 30px;
+  box-shadow: 0px 0px 25px #EBEBF4;
 }
 
 button {
@@ -33,16 +37,19 @@ button {
 button:hover {
   background: rgb(218, 186, 148);
 }
+ /* Dynamic Class */
 .correct-answer {
-  background-color: chartreuse;
+  background-color: chartreuse !important;
 }
 
 .incorrect-answer {
-  background-color:brown
+  background-color: brown !important;
+  color: #fff !important;
 }
 .disabled-answer {
   pointer-events: none;
 }
+
 .question-card h3.quiz-answer {
   background: transparent;
   cursor: pointer;
@@ -52,4 +59,8 @@ button:hover {
 }
 .question-card h3.quiz-answer:hover {
   background: antiquewhite;
+}
+
+h4.question {
+  font-size: 18px;
 }
