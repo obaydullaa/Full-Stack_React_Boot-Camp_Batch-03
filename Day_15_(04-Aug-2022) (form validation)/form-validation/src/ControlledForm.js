@@ -66,7 +66,7 @@ export default function ControlledForm() {
                 userError.userName = 'User Name is Required'
             }
         
-        const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        const regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
         if(email === '' || !regexEmail.test(email)){
                 isError = true;
                 userError.email = 'Email is Required and must be valid'
@@ -84,7 +84,7 @@ export default function ControlledForm() {
             //     return /[A-Z]/.test(p) && /[0-9]/.test(p) && !/[aeiou]/.test(p) && /^[@#][A-Za-z0-9]{7,13}$/.test(p);
             // }
 
-          const regPassword =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+          const regPassword =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
 
         if(password === '' || !regPassword.test(password)){
                 isError = true;
@@ -97,9 +97,9 @@ export default function ControlledForm() {
                 userError.confirmPassword = 'Please Confirm your Password'
             }
             // const regexWebUrl = new RegExp('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'); 
-            function urlPatternValidation(weburl){
+            function urlPatternValidation(webUrl){
                 const regex = new RegExp('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?');    
-                return regex.test(weburl);
+                return regex.test(webUrl);
               };
 
             if( webUrl === '' || urlPatternValidation(password)){
@@ -245,7 +245,6 @@ export default function ControlledForm() {
                     <div className='singleRadio'>
                         <input type="radio"
                         name='gender' 
-                        id='gender' 
                         value='male' 
                         id='male' 
                         checked={gender === 'male'}
