@@ -1,13 +1,91 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.container  {
+ width: 700px;
+ margin: 50px auto;
+}
+h2.formHeading {
+  text-align: center;
+  font-size: 30px;
+}
+.container form {
+  display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+  margin-left: -30px;
+  padding-right: 8px;
+  width: 700px;
+}
+.container fieldset {
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  width: 45%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.container fieldset input {
+  height: 15px;
+  width: 95%;
+  border-radius: 5px;
+  padding: 16px 10px;
+  font-size: 1rem;
+  transition-property: all;
+  transition-duration: 150ms;
+  border: 2px solid;
+  border-color: #b3d9db;
+}
+.container fieldset select {
+  width: 95%;
+  border-radius: 5px;
+  padding: 16px 10px;
+  font-size: 1rem;
+  border: 2px solid;
+  border-color: #b3d9db;
+}
+.container fieldset select:focus {
+  border-color:  #6ad9df;
+  outline: none !important;
+}
+
+.container fieldset input::placeholder {
+  color: rgb(105, 101, 101);
+}
+/* .container fieldset > select option::placeholder {
+  color: rgb(196, 189, 189);
+} */
+.container fieldset input:focus {
+  border-color:  #6ad9df;
+  outline: none !important;
+}
+
+.container fieldset .radioBtnWrap {
+  display: flex;
+  margin-top: 16px;
+}
+.singleRadio {
+  display: flex;
+  margin-right: 30px;
+}
+
+.singleRadio input {
+  margin: 2px 15px;
+}
+.button-wrap button.submitBtn {
+  border: 0;
+  background: #c25251;
+  padding: 11px 50px;
+  font-size: 20px;
+  color: #fff;
+  border-radius: 5px;
+  transform: .3s all;
+  cursor: pointer
+}
+.button-wrap button.submitBtn:hover {
+  background: #ab5e5e;;
+}
+
+.button-wrap {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
 }

@@ -1,6 +1,5 @@
 
 import ControlledForm from "./ControlledForm";
-import './index.css'
 // import UnControlledForm from "./UnControlledForm";
 
 function App() {
