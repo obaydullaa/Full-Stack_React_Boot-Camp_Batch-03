@@ -279,4 +279,244 @@ function App() {
 
 আমরা id পেয়েগিয়েছি । এখন আমরা যে id পেয়েছি সেটা বাদে বাকি গুলো contacts state এর মধ্য সেট করে দিব । আমরা ডিরেক্ট মডিফাই করতে পারি । এর জন্য আমরা slice use করতে পারি । আমরা জানি  slice অরিজিনিয়াল array কে ডিরেক্ট মডিফাই করে দেয় । কিন্তু আমরা কখনই অরিজিনিয়াল ডাটা কে মডিফাই করব না । তাহলে আমরা aray helper method use করতে পারি । এর মধ্য আমরা filter use করতে পারি । যে আইটেমটার id আসতেছে সেটা বাদে বাকি আইটেম গুলোকে filter করে contact এ সেট করে দিব। contact এ সেটা হওয়া মানে আবার component new করে রিলোড হবে । 
 
+10. এখন আমরা শিখব contact Add করা। এই জন্য আমরা contacts foler -> contacts -> AddCotact.jsx file নিব । App.jsx ফাইল container এর উপরে রাখব । এর পর react bootstrap থেকে form এনে মার্কাআপ করব। এর পর আমরা ডাইনামিক contact set করব। 
 
+আমাদের contact file রয়েছে contacts -> AddContact.jsx file এ । কিন্তু আমাদের contact info এড হবে App.jsx এ । Children থেকে প্যারেন্টে ডাটা পাঠাতে হবে । এই জন্য আমরা App.jsx ফাইলে function নিয়ে props হিসবে ডাটা পাঠাবো ।
+
+আমরা আমাদের initialContacts এর মধ্য সেট করে দিতে পারতাম কিন্তু আমাদের একটা ডাটা নেই সেটা হলো id এইজন্য আমর uuid নামের একটা প্যাকেজ ইন্সটল করে নিব। 
+
+Package Install for unick id --> uuid
+
+আমরা ডিরেক্ট initialContacts এর মধ্য পুশ করলে হবে না, কারণ আমাদের অর্জিনিয়াল array কে চেঞ্জ করলে হবে না । নতুন array বানিয়ে দেখাতে হবে ।
+ 
+App.jsx:
+===========
+import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid';
+
+import {Container } from 'react-bootstrap'
+import AddContact from './contacts/AddContact';
+import Contacts from './contacts/Contacts'
+import Header from './layouts/Header';
+
+function App() {
+  const [contacts, setContacts] = useState(initialContacts)
+
+  const deleteContact = (id) => {
+    const updatedContact = contacts.filter((contact) => contact.id !== id)
+    setContacts(updatedContact)
+  }
+
+  const addContact = contact => { //this
+      id: uuidv4,
+      ...contact,
+    }
+    setContacts([contactToAdd, ...contacts])
+  }
+
+  return (
+    <>
+      <Header/>
+      <Container style={{width: '800px', margin: '0 auto'}} className='pt-5'> 
+        <AddContact addContact={addContact}/>
+        <Contacts contacts={contacts} deleteContact={deleteContact}/>
+      </Container>
+    </>
+  )
+}
+
+export default App
+
+AddContact.jsx:
+=======================
+import React from 'react'
+import { useState } from 'react'
+
+import {Form, Button, Col, Row} from 'react-bootstrap'
+
+export default function AddContact({addContact}) {
+    const [contact, setContact] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        profession: '',
+        bio: '',
+        dateOfBirth: new Date(),
+        gender: 'male',
+        image: '',
+    })
+    const handleChange = (evt) => {
+        setContact({
+            ...contact,
+            [evt.target.name]: evt.target.value,
+        })
+    }
+    const handleSubmit = (evt) => {
+        evt.preventDefault();
+        console.log(contact)
+        // checking validation
+
+
+        //Form Submission
+        addContact(contact)
+    }
+
+    const {firstName, lastName, email, profession, bio, dateOfBirth, gender, image} = contact
+  return (
+    <>
+        <h2 className='text-center mb-5'>Add Contact</h2>
+        <Form onSubmit={handleSubmit}>
+            <Form.Group as={Row} className="mb-3">
+                <Col sm={3}>
+                    <Form.Label htmlFor='firstName' column>
+                        First Name
+                    </Form.Label>
+                </Col>
+                <Col sm={9}>
+                    <Form.Control 
+                    type="text" 
+                    placeholder="FistName"
+                    id='firstName' 
+                    name='firstName'
+                    value={firstName}
+                    onChange={handleChange}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row} className="mb-3">
+                <Col sm={3}>
+                    <Form.Label htmlFor='lastName' column>
+                        LastName
+                    </Form.Label>
+                </Col>
+                <Col sm={9}>
+                    <Form.Control 
+                    type="text" 
+                    placeholder="LastName"
+                    id='lastName' 
+                    name='lastName'
+                    value={lastName}
+                    onChange={handleChange}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row} className="mb-3">
+                <Col sm={3}>
+                    <Form.Label htmlFor='email' column>
+                        Email
+                    </Form.Label>
+                </Col>
+                <Col sm={9}>
+                    <Form.Control 
+                    type="email" 
+                    placeholder="Email"
+                    id='email' 
+                    name='email'
+                    value={email}
+                    onChange={handleChange}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row} className="mb-3">
+                <Col sm={3}>
+                    <Form.Label htmlFor='profession' column>
+                    Profession
+                    </Form.Label>
+                </Col>
+                <Col sm={9}>
+                    <Form.Control 
+                    type="text" 
+                    placeholder="Profession"
+                    id='profession' 
+                    name='profession'
+                    value={profession}
+                    onChange={handleChange}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row} className="mb-3">
+                <Col sm={3}>
+                    <Form.Label htmlFor='image' column>
+                    Profile Picture
+                    </Form.Label>
+                </Col>
+                <Col sm={9}>
+                    <Form.Control 
+                    type="text" 
+                    placeholder="Enter link of your profile picture"
+                    id='image' 
+                    name='image'
+                    value={image}
+                    onChange={handleChange}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row} className="mb-3">
+                <Col sm={3}>
+                    <Form.Label htmlFor='dateOfBirth' column>
+                        Date Of Birth
+                    </Form.Label>
+                </Col>
+                <Col sm={9}>
+                    <Form.Control 
+                    type="date" 
+                    placeholder="dateOfBirth"
+                    id='dateOfBirth' 
+                    name='dateOfBirth'
+                    value={dateOfBirth}
+                    onChange={handleChange}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row} className="mb-3">
+                <Col sm={3}>
+                    <Form.Label htmlFor='firstName' column>
+                        Gender
+                    </Form.Label>
+                </Col>
+                <Col xs='auto'>
+                    <Form.Check
+                    type="radio" 
+                    name='gender'
+                    label='Male'
+                    value='male'
+                    checked={gender === 'male'}
+                    onChange={handleChange}
+                    />
+                    </Col>
+                    <Col xs='auto'>     
+                    <Form.Check
+                    type="radio" 
+                    label='Female'
+                    name='gender'
+                    value='female'
+                    checked={gender === 'female'}
+                    onChange={handleChange}
+                    />  
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row} className="mb-3">
+                <Col sm={3}>
+                    <Form.Label htmlFor='dateOfBirth' column>
+                        Bio
+                    </Form.Label>
+                </Col>
+                <Col sm={9}>
+                    <Form.Control 
+                    as='textarea'
+                    type="text" 
+                    placeholder="Bio"
+                    id='bio' 
+                    name='bio'
+                    value={bio}
+                    onChange={handleChange}
+                    />
+                </Col>
+            </Form.Group>
+            <Button className='text-center' variant='primary' size='md' type='submit'>
+                Add Contact
+            </Button>
+        </Form>
+    </>
+  )
+}
