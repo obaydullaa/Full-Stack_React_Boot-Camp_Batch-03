@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;1,700&family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #eee8e4;
+
+}
+
+.brand {
+    font-family: 'Lobster Two', cursive;
+}
+.card-img {
+    max-width: 300px;
+    padding: 1.5rem;
+    height: auto;
+}
