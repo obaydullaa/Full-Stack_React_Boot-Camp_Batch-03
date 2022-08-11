@@ -150,6 +150,7 @@ export default function ControlledForm() {
                 value='male'
                 onChange={handleChange}
                 /> Male
+                
                 <input type="radio" 
                 name='gender'
                 checked={gender === 'female'}
