@@ -1,5 +1,5 @@
 {
-  "name": "dev-manager",
+  "name": "react-hooks-form",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,17 +13,14 @@
     "bootstrap": "^5.2.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
-    "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.34.0",
-    "react-icons": "^4.4.0",
-    "uuid": "^8.3.2",
+    "react-hook-form": "^7.34.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@types/react": "^18.0.15",
+    "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
-    "@vitejs/plugin-react": "^2.0.0",
-    "vite": "^3.0.0"
+    "@vitejs/plugin-react": "^2.0.1",
+    "vite": "^3.0.6"
   }
 }

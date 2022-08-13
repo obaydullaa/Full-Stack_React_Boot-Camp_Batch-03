@@ -14,10 +14,30 @@
  *  Securely identify the user (Authorization)
  * 
  */
+/**
+ * All Package Install
+ * ========================================
+ * 1. For Id Generator -> unick id
+ * 2. For date picker : search ::  react Date picker   ->  https://reactdatepicker.com/
+ * 3. From validation : React hook form ->    https://react-hook-form.com/
+ *    4.  yup for showing error         ->    https://www.npmjs.com/package/yup
+ *      react hook form and yup install:  yarn add react-hook-form yup
+ *      npm install @hookform/resolvers yup
+ * 
+ * 
+ */
 
-App.jsx ->
-==============
-1. We get contact info :
+/**
+ * First Part contact create and how display
+ * 
+ * ===================================================
+  npm create vite@latest issue-tracker -- --template react
+ 
+ */
+
+// App.jsx ->
+// ==============
+// 1. We get contact info :
 
     const initialContacts = [
     {
@@ -100,10 +120,11 @@ App.jsx ->
       bio: 'All About me',
     },
   ]
-2. tracking this info we get state -> const [contacts, setContacts] = useState(initialContacts)
-3. For organized Create folder: "contacts" folder -> Contacts.jsc
-  App.jsx -:
-  ==========
+// 2. tracking this info we get state -> const [contacts, setContacts] = useState(initialContacts)
+// 3. For organized Create folder: "contacts" folder -> Contacts.jsc
+
+  // App.jsx -:
+  // ==========
   function App() {
     const [contacts, setContacts] = useState(initialContacts)
     return (
@@ -116,10 +137,10 @@ App.jsx ->
   export default App
   
   4. এখন আমরা contacts গুলো দেখাবো এই জন্য লুপ করব। যেহেতু লুপ এবং পেজিনেশন করব সেই জন্য আমরা আরেকটা contact নামে কম্পোনেট নিব । সেখানে contact গুলো রাখব ।  
-    Contacts.jsx
-    ==================
-    import React from 'react'
-    import Contact from './Contact'
+    // Contacts.jsx
+    // ==================
+    import { default as React, default as React, useState } from 'react'
+import Contact from './Contact'
 
     export default function Contacts({contacts}) {
     return (
@@ -133,7 +154,6 @@ App.jsx ->
 
     Contact.jsx:
     ====================
-    import React from 'react'
 
     export default function Contact({contact}) {
         console.log(contact)
@@ -145,10 +165,9 @@ App.jsx ->
     // এখন আমরা ব্রাউজারে দেখব contact 7 বার দেখিয়েছে কারণ আমাদের 7 ডাটা আছে ।
 5. এখন আমরা src folder এর মধ্য 'layout' folder নিয়ে এর মধ্য Header.jsx নামের ফাইল নিব । react bootstrap থেকে NabBar কপি করে  Header.jsx এর মধ্য পেস্ট করে দিব । 
 App.jsx:
-import { useState } from 'react'
 
 import Contacts from './contacts/Contacts'
-import Header from './layouts/Header';
+import Header from './layouts/Header'
 
 function App() {
   const [contacts, setContacts] = useState(initialContacts)
@@ -164,11 +183,11 @@ function App() {
 export default App
 
 
-Heapder.jsx:
-=============
-import React from 'react'
+// Header.jsx:
+// =============
+// import React from 'react'
 
-import {Button, Navbar, Container, Nav, Form, NavDropdown} from 'react-bootstrap';
+import { Button, Container, Form, Nav, Navbar } from 'react-bootstrap'
 
 
 export default function Header() {
@@ -211,14 +230,14 @@ export default function Header() {
     and dynamically show contacts info
 8. add react icons cmd -> yarn add react-icons
 
-Contact.jsx:
-=================
+// Contact.jsx:
+// =================
 
 
 import React from 'react'
 
-import {Button, Card, ListGroup} from 'react-bootstrap'
-import {FaEye, FaRegTrashAlt} from 'react-icons/fa'
+import { Card, ListGroup } from 'react-bootstrap'
+import { FaEye, FaRegTrashAlt } from 'react-icons/fa'
 
 export default function Contact({contact}) {
     console.log(contact)
@@ -257,8 +276,8 @@ export default function Contact({contact}) {
 }
 
 9.এখন আমরা ডিলিট আইকোনে ক্লিক করলে ডিলেইট হয়ে যাবে সেটা করতে হলে id ধরতে হবে । onClick eventlistener add করব। আমাদের ডাটা রয়েছে App.jsx ফাইলে তাই আমরা App.jsx ফাইলে ফাংশন নিব । এবং সেখান থেকে props হিসাবে ডাটা পাঠিয়ে দিব । 
-App.jsx :
-===========
+// App.jsx :
+// ===========
 function App() {
   const [contacts, setContacts] = useState(initialContacts)
 
@@ -289,15 +308,11 @@ Package Install for unick id --> uuid
 
 আমরা ডিরেক্ট initialContacts এর মধ্য পুশ করলে হবে না, কারণ আমাদের অর্জিনিয়াল array কে চেঞ্জ করলে হবে না । নতুন array বানিয়ে দেখাতে হবে ।
  
-App.jsx:
-===========
-import { useState } from 'react'
-import { v4 as uuidv4 } from 'uuid';
+// App.jsx:
+// ===========
+import { v4 as uuidv4 } from 'uuid'
 
-import {Container } from 'react-bootstrap'
-import AddContact from './contacts/AddContact';
-import Contacts from './contacts/Contacts'
-import Header from './layouts/Header';
+import AddContact from './contacts/AddContact'
 
 function App() {
   const [contacts, setContacts] = useState(initialContacts)
@@ -327,12 +342,11 @@ function App() {
 
 export default App
 
-AddContact.jsx:
-=======================
+// AddContact.jsx:
+// =======================
 import React from 'react'
-import { useState } from 'react'
 
-import {Form, Button, Col, Row} from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 
 export default function AddContact({addContact}) {
     const [contact, setContact] = useState({
@@ -520,3 +534,125 @@ export default function AddContact({addContact}) {
     </>
   )
 }
+
+
+// Class: 11 React Apply (Videos 1.38:58)
+//=================================================================
+
+11.  Install React Datepicker
+12. react hook form and yup install => yarn add react-hook-form yup
+13. npm install @hookform/resolvers yup
+14. from এর আগের ফাংশন কমেন্ট করে দিব এবং একটা ইনপুট রেখে বাকি গুলে কমেন্ট করে দিব।
+useForm Hook দিয়ে ইরোর মেসেজ দেখিয়েছি ।
+
+import { yupResolver } from '@hookform/resolvers/yup'
+import React from 'react'
+import { useForm } from "react-hook-form"
+import * as yup from 'yup'
+
+export default function AddContact({addContact}) { 
+    const [birthYear, setBirthYear] = useState(new Date());
+    
+    const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm();
+    console.log(errors)
+ 
+    const onSubmit = data => {
+        console.log(data)
+    }
+
+  return (
+    <>
+        <h2 className='text-center mb-5'>Add Contact</h2>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+            <Form.Group as={Row} className="mb-3">
+                <Col sm={3}>
+                    <Form.Label htmlFor='firstName' column>
+                        First Name
+                    </Form.Label>
+                </Col>
+                <Col sm={9}>
+                    <Form.Control 
+                    type="text" 
+                    placeholder="FistName"
+                    id='firstName' 
+                    {...register('firstName', {required: 'FirstName is Required', minLength: {value: 3, message:'Length must be 3'}})}
+                    />
+                {errors?.firstName?.message}
+                </Col>
+            </Form.Group>
+            <Button className='text-center' variant='primary' size='md' type='submit'>
+                Add Contact
+            </Button>
+        </Form>
+    </>
+  )
+}
+
+15. এখন আমরা react bootstrap & useForm  দিয়ে ইরোর মেসেজ দেখব । 
+
+<Form.Group as={Row} className="mb-3">
+<Col sm={3}>
+    <Form.Label htmlFor='firstName' column>
+        First Name
+    </Form.Label>
+</Col>
+<Col sm={9}>
+    <Form.Control 
+    type="text" 
+    placeholder="FistName"
+    id='firstName' 
+    {...register('firstName', 
+    {required: 'FirstName is Required', 
+    minLength: {value: 3, message:'Length must be 3'},
+    })}
+    isInvalid={errors?.firstName}
+    />
+    <Form.Control.Feedback type='invalid' >
+        {errors?.firstName?.message}
+    </Form.Control.Feedback>
+</Col>
+</Form.Group>
+
+16. এখন আমরা yup use করব। এই জন্য ফাংশনের উপরে schema ভ্যারিএবল নিব এর মধ্য yup লিখব ;
+const schema = you.object({
+  firstName: yupResolver.string()
+  .required('FistName is Required')
+  .min(3, 'FistName must be 3 or more')
+})
+
+এরপরে UseForm এর মধ্য পেস্ট করে দিব।
+const { register, 
+  handleSubmit, 
+  watch, 
+  formState: 
+  { errors, isSubmitting },
+} = useForm({
+  resolver: yupResolver(schema)
+});
+17. Date of birth ফিল্ড এর জন্য আমরা একটা স্টেট নিব । সেটার মাধ্যমে ম্যানুয়ালি ডিল করবঃ
+          const [birthYear, setBirthYear] = useState(new Date())
+          dateOfBirth track করতে হলে যা করতে হলে useEffect হুক ইউজ করতে হবে । 
+
+          const [birthYear, setBirthYear] = useState(new Date()) // New Added.
+          useEffect(() => {
+           setValue('dateOfBirth', birthYear)
+          },[birthYear]) 
+       
+           const { register, 
+               handleSubmit, 
+               watch, 
+               setValue, // এড করা হয়েছে 
+               formState:{ errors, isSubmitting },
+            } = useForm({
+               resolver: yupResolver(schema),
+            });
+
+18. submit button  এ অনেক সময় ইউজার বার বার ক্লিক করতে পারে । এ জন্য বার বার সার্ভাসে ফর্ম প্রসেস হতে পারে এটা বন্ধের জন্য আমরা এটা ইউজ করতে পারি । formState:{ errors, isSubmitting, isSubmitSuccessful }, ->  isSubmitting মানে সাবমিট অবস্থায় আছে । এটা ইউজ করে বারবার সাবমিট অফ করতে পারি ।
+<Button 
+className='text-center' 
+variant='primary' size='md' 
+type='submit'
+disabled={isSubmitting? 'disabled':''}
+>
+    Add Contact
+</Button>
