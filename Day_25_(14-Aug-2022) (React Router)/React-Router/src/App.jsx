@@ -22,10 +22,11 @@ function App() {
             <Route index element={<Home />} />
             <Route path='/home' element={<Home />} />
             <Route path='/about' element={<About />}>
+              <Route path='/about' element={<About />} />
               <Route path='/about/single-about' element={<SingleAbout />} />
               <Route path='/about/details-about' element={<DetailsAbout />} />
             </Route>
-            <Route path='/contact' element={<Contact />} />
+            <Route path='contact' element={<Contact />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </div>

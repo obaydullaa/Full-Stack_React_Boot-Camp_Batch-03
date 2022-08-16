@@ -26,11 +26,9 @@ function MainNavbar() {
             <NavLink to='contact' className='nav-link' >Contact</NavLink>
             
             <NavDropdown title="About" id="basic-nav-dropdown">
+              <NavLink to='/about' className="dropdown-item">About</NavLink>
               <NavLink to='about/single-about' className="dropdown-item">Single About</NavLink>
               <NavLink to="/about/details-about" className="dropdown-item">About Details</NavLink>
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
