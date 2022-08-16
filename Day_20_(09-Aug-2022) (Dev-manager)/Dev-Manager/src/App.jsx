@@ -1,11 +1,17 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import {Container } from 'react-bootstrap'
-import AddContact from './contacts/AddContact';
-import Contacts from './contacts/Contacts'
-import Header from './layouts/Header';
+import { Container } from 'react-bootstrap';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
+import AddContact from './contacts/AddContact';
+import Contacts from './contacts/Contacts';
+import Header from './layouts/Header';
+import Home from './pages/Home'
+import Register from './pages/Register'
+import Login from './pages/Login'
+import NotFound from './pages/NotFound'
+import EditContact from './pages/EditContact'
 
 const initialContacts = [
   {
@@ -118,11 +124,30 @@ function App() {
         draggable
         pauseOnHover
         />
+
+      <BrowserRouter>
       <Header/>
-      <Container style={{width: '800px', margin: '0 auto'}} className='pt-5'> 
-        <AddContact addContact={addContact}/>
-        <Contacts contacts={contacts} deleteContact={deleteContact}/>
-      </Container>
+      
+        <Container style={{width: '800px', margin: '0 auto'}} className='pt-5'> 
+          <Routes>
+            <Route index element={<Home />} />
+            <Route 
+            path='/contacts'
+            element={
+              <Contacts contacts={contacts} deleteContact={deleteContact}/>
+            } 
+            />
+            <Route path='/add-contact' element={<AddContact addContact={addContact}/>} />
+            <Route path='/edit-contact' element={<EditContact />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/login' element={<Login/>} />      
+            <Route path='*' element={<NotFound/>} />
+            
+            
+          </Routes>
+        </Container>
+      </BrowserRouter>
+      
     </>
   )
 }

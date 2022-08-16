@@ -1,14 +1,13 @@
 import React from 'react'
-
 import {Button, Navbar, Container, Nav, Form, NavDropdown} from 'react-bootstrap';
-
+import {NavLink, Link} from 'react-router-dom'
 
 export default function Header() {
   return (
-    <>
-        <Navbar bg="light" expand="lg">
+    <>  
+        <Navbar bg="light" expand="sm">
             <Container fluid>
-            <Navbar.Brand href="#" className='brand'>Dev Manager</Navbar.Brand>
+            <Navbar.Brand to='/' as={Link} className='brand'>Dev Manager</Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">
                 <Nav
@@ -16,11 +15,10 @@ export default function Header() {
                 style={{ maxHeight: '100px' }}
                 navbarScroll
                 >
-                <Nav.Link href="#action1">Contacts</Nav.Link>
-                <Nav.Link href="#action2">Register</Nav.Link>
-                <Nav.Link href="#" disabled>
-                    Contacts
-                </Nav.Link>
+                    <Nav.Link as={NavLink} to='/contacts' >Contacts</Nav.Link>
+                    <Nav.Link as={NavLink} to='/add-contact' >Add Contact</Nav.Link>
+                    <Nav.Link as={NavLink} to='/register' >Register</Nav.Link>
+                    <Nav.Link as={NavLink} to='/login' >Login</Nav.Link>
                 </Nav>
                 <Form className="d-flex">
                 <Form.Control

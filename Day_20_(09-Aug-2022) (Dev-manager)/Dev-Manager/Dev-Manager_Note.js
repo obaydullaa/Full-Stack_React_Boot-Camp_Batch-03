@@ -714,12 +714,39 @@ const {firstName, lastName, email, profession, bio, image} = defaultValue
   আমরা App.jsx এর মধ্য ডাটা গুলোর মধ্য  id নাম্বার হিসাবে আছে তাই আমরা id স্টিং করে দিব। 
 
   22. sucess message দেখানোর জন্য আমরা react toastify github pages এখান থেকে এটা ইন্সটল করে এড করে নিব । index.jsx file a css import korbo & and App.jsx file a ToastContainer import korbo.
-  amora jekhane toast message dakabo sekhan tost add korbo. amora AddContact a toast msg dakhabo tai sekhane toast import korbo
+  amora jekhane toast message dakabo sekhan tost add korbo. amora AddContact a toast msg dakhabo tai sekhane toast import korbo.
 
+// App.js ->
+import { ToastContainer } from 'react-toastify'
 
+return (
+  <> 
+    <ToastContainer
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      />
+  </>
+)
+//AddContact.jsx
 
+import { toast } from 'react-toastify'
 
+const onSubmit = data => {
+  //show flash message
+  toast.success('Contact is added Successfully')
+  //adding contacts
+  addContact(data)
+}
 
+23. install react router dom and import  করব । আমরা Header.jsx এ Link এড না করে NavLink এড করব এর কারণ NavLink মেনু তে একটা একটিভ ক্লাস এড করবে । আমাদের প্রোজনে কিছু পেজ নিয়েছি । সেগুলো মেনু তে এড করেছি, এবং রাউটিং করেছি ।
+ 57 minute
 
 
 
