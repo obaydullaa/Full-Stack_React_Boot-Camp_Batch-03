@@ -1,11 +1,11 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import DatePicker from "react-datepicker";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import {Form, Button, Col, Row} from 'react-bootstrap'
 import * as yup from 'yup';
-import { toast } from 'react-toastify';
+import { useEffect } from 'react';
 
 const schema = yup.object({
     firstName: yup
@@ -23,7 +23,6 @@ const schema = yup.object({
     profession: yup
     .string()
     .required('Profession is Required')
-    .oneOf(['developer', 'designer', 'marketer'])
     .min(3, 'Profession must be 3 or more in length'),
     bio: yup
     .string()
@@ -36,7 +35,7 @@ const schema = yup.object({
     .url('Must be a valid URL'),
   })
 
-export default function AddContact({addContact}) {
+export default function AddContact() {
     // const [contact, setContact] = useState({
     //     firstName: '',
     //     lastName: '',
@@ -59,16 +58,7 @@ export default function AddContact({addContact}) {
      } = useForm({
         resolver: yupResolver(schema),
      });
-    
-    const defaultValue = {
-        firstName: 'Obaydul',
-        lastName: 'Islam',
-        email: 'obaaydulIslam@gmail.com',
-        profession: 'developer',
-        bio: 'All about myself, Modify of your own if necessary',
-        image: 'https://randomuser.me/api/portraits/men/78.jpg',
-    }
-    const {firstName, lastName, email, profession, bio, image} = defaultValue
+    console.log(errors)
 
     useEffect(() => {
         if(isSubmitSuccessful) {
@@ -103,10 +93,7 @@ export default function AddContact({addContact}) {
     //     addContact(contact)
     // }
     const onSubmit = data => {
-        //show flash message
-        toast.success('Contact is added Successfully')
-        //adding contacts
-        addContact(data)
+        console.log(data)
     }
 
     // const {firstName, lastName, email, profession, bio, dateOfBirth, gender, image} = contact
@@ -125,7 +112,7 @@ export default function AddContact({addContact}) {
                     type="text" 
                     placeholder="FistName"
                     id='firstName' 
-                    defaultValue={firstName}
+                    defaultValue=''
                     {...register('firstName')}
                     isInvalid={errors?.firstName}
                     />
@@ -145,7 +132,7 @@ export default function AddContact({addContact}) {
                     type="text" 
                     placeholder="LastName"
                     id='lastName' 
-                    defaultValue={lastName}
+                    defaultValue=''
                     {...register('lastName')}
                     isInvalid={errors?.lastName}
                     />
@@ -165,7 +152,7 @@ export default function AddContact({addContact}) {
                     type="email" 
                     placeholder="Email"
                     id='email' 
-                    defaultValue={email}
+                    defaultValue=''
                     {...register('email')}
                     isInvalid={errors?.email}
                     />
@@ -181,18 +168,14 @@ export default function AddContact({addContact}) {
                     </Form.Label>
                 </Col>
                 <Col sm={9}>
-                <Form.Select
-                 {...register('profession')} 
-                 id='profession'
-                 defaultValue={profession}
-                 aria-label="Select your profession"
-                 isInvalid={errors?.profession}
-                 >
-                    <option value='' disabled>Select Your Profession</option>
-                    <option value="developer">Developer</option>
-                    <option value="designer">Designer</option>
-                    <option value="marketer">Marketer</option>
-                    </Form.Select>
+                    <Form.Control 
+                    type="text" 
+                    placeholder="Profession"
+                    id='profession' 
+                    defaultValue=''
+                    {...register('profession')}
+                    isInvalid={errors?.profession}
+                    />
                     <Form.Control.Feedback type='invalid' >
                         {errors?.profession?.message}
                     </Form.Control.Feedback>
@@ -209,7 +192,7 @@ export default function AddContact({addContact}) {
                     type="text" 
                     placeholder="Enter link of your profile picture"
                     id='image' 
-                    defaultValue={image}
+                    defaultValue=''
                     {...register('image')}
                     isInvalid={errors?.image}
                     />
@@ -272,7 +255,7 @@ export default function AddContact({addContact}) {
                     as='textarea'
                     type="text" 
                     placeholder="Bio"
-                    defaultValue={bio}
+                    defaultValue=''
                     {...register('bio')}
                     isInvalid={errors?.bio}
                     />

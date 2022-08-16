@@ -5,11 +5,11 @@ import {Container } from 'react-bootstrap'
 import AddContact from './contacts/AddContact';
 import Contacts from './contacts/Contacts'
 import Header from './layouts/Header';
-import { ToastContainer } from 'react-toastify';
+
 
 const initialContacts = [
   {
-    id: '1',
+    id: 1,
     firstName: 'Barbette',
     lastName: 'Pfertner',
     email: 'bpfertner0@drupal.org',
@@ -20,7 +20,7 @@ const initialContacts = [
     bio: 'All About me',
   },
   {
-    id: '2',
+    id: 2,
     firstName: 'Ignatius',
     lastName: 'McPhilip',
     email: 'imcphilip1@toplist.cz',
@@ -32,7 +32,7 @@ const initialContacts = [
     bio: 'All About me',
   },
   {
-    id: '3',
+    id: 3,
     firstName: 'Fletch',
     lastName: 'Veel',
     email: 'fveel2@yellowbook.com',
@@ -44,7 +44,7 @@ const initialContacts = [
     bio: 'All About me',
   },
   {
-    id: '4',
+    id: 4,
     firstName: 'Shawn',
     lastName: 'Lawrenz',
     email: 'slawrenz3@independent.co.uk',
@@ -55,7 +55,7 @@ const initialContacts = [
     bio: 'All About me',
   },
   {
-    id:' 5',
+    id: 5,
     firstName: 'Bucky',
     lastName: 'Casaccio',
     email: 'bcasaccio4@netlog.com',
@@ -66,7 +66,7 @@ const initialContacts = [
     bio: 'All About me',
   },
   {
-    id: '6',
+    id: 6,
     firstName: 'Regan',
     lastName: 'Lodford',
     email: 'rlodford5@nbcnews.com',
@@ -77,7 +77,7 @@ const initialContacts = [
     bio: 'All About me',
   },
   {
-    id: '7',
+    id: 7,
     firstName: 'Hubert',
     lastName: 'Langhorne',
     email: 'hlanghorne6@thetimes.co.uk',
@@ -106,18 +106,7 @@ function App() {
   }
 
   return (
-    <> 
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        />
+    <>
       <Header/>
       <Container style={{width: '800px', margin: '0 auto'}} className='pt-5'> 
         <AddContact addContact={addContact}/>

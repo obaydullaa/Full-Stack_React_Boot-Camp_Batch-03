@@ -3,7 +3,6 @@ import React from 'react'
 
 import {Button, Card, ListGroup} from 'react-bootstrap'
 import {FaEye, FaRegTrashAlt} from 'react-icons/fa'
-import {format} from 'date-fns'
 
 export default function Contact({contact, deleteContact}) {
     const {id, firstName, lastName, email, profession, gender, image, dateOfBirth, bio} = contact
@@ -21,10 +20,7 @@ export default function Contact({contact, deleteContact}) {
                         <ListGroup className="list-group-flush">
                             <ListGroup.Item>Gender: {gender}</ListGroup.Item>
                             <ListGroup.Item>Email: {email}</ListGroup.Item>
-                            <ListGroup.Item>Date of Birth: {' '} 
-                            {dateOfBirth instanceof Object 
-                            ? format(dateOfBirth,'dd/MM/yyyy'): dateOfBirth}
-                            </ListGroup.Item>
+                            <ListGroup.Item>Date of Birth: {dateOfBirth}</ListGroup.Item>
                         </ListGroup>
                         <div className="card-btn mt-3">
                             <Card.Link href="#">
