@@ -745,11 +745,120 @@ const onSubmit = data => {
   addContact(data)
 }
 
-23. install react router dom and import  করব । আমরা Header.jsx এ Link এড না করে NavLink এড করব এর কারণ NavLink মেনু তে একটা একটিভ ক্লাস এড করবে । আমাদের প্রোজনে কিছু পেজ নিয়েছি । সেগুলো মেনু তে এড করেছি, এবং রাউটিং করেছি ।
- 57 minute
+23. install react router dom and import  করবimport EditContactimportimport { useNavigate } from 'react-router-dom'
+ ContactForm from './src/components/contacts/ContactForm'
+ from './src/pages/EditContact'
+ । আমরা Header.jsx এ Link এড না করে NavLink এড করব এর কারণ NavLink মেনু তে একটা একটিভ ক্লাস এড করবে । আমাদের প্রোজনে কিছু পেজ নিয়েছি । সেগুলো মেনু তে এড করেছি, এবং রাউটিং করেছি ।
+ contacts :-
+      AddContact.jsx
+      Contact.jsx
+      Contacts.jsx
+
+pages :-
+    Home.jsx
+    EdditContact.jsx
+    Login.jsx
+    NotFound.jsx
+    Register.jsx
+    App.jsx
+
+EditContact.jsx এ আমরা AddContact.jsx এর মত ফর্ম লাগবে আমরা AddContact.jsx এর ফর্ম ইউজ করব, কিন্তু কপি পেস্ট করব না ।   
+
+আমরা EditContact এর path আসলে এটা না <Route path='/edit-contact' element={<EditContact />} /> আমরা এভাবে path='/edit-contact/:id' এভাবে ভ্যারিএবল এর মত করে নিতে পারি । 
+
+24. EditContact.jsx -> আমরা id টা পেয়েছি । এখন আমরা এটা খুজে বের করতে হবে । এই জন্য amora contact props hisbe pathabo.
+
+// App.jsx: ->
+<Route path='/edit-contact/:id' element={<EditContact contacts={contacts} />} />
+
+// EditContact.jsx :->
+const params = useParams()
+const {id} = params
+
+const {id} = params
+const foundContact = contacts.find((contact) => contact.id === id)
+
+return <ContactForm contact={foundContact} />
+
+আমরা এখব update করব । আমাদের ডাটা গুলো আছে Apps.jsx file a. তাই এখান থেকে ডাটা গুলো পাঠাতে হবে এজন্য এখানেই function nibo. এবং props হিসাবে EditContactjsx এ পাঠাবো । EditContactjsx এ রিসিভ করে ContactForm এ props হিসাবে পাঠাবো । 
+
+ContactForm component এ আমরা AddContact.jsx Or EditContact.jsx থেকে আসতেছে সেটা বুঝার জন্য আমরা  return <ContactForm contact={foundContact} updatecontact={updatecontact} /> component pass করছি ।  AddContact.jsx থেকে আমরা কোন component পাঠাচ্ছি না। 
+
+এর পর defaultValue এর সাথে এড করে দিব। contact থেকে ডাটা আসলে সে গুলো পাবো তা না হলে defaultValue এর ডাট পাবে । 
+
+আরেকটা জিনিস মেইল চেক করা জন্য আমরা একটু চেঞ্জ করে দিব। আর আমাদের initialContacts এ capital letter a Male & Female লিখে আছে । কিন্তু আমরা চেক করেছি samll letter a তাই initialContacts এর male & felamle kore dibo.
+defaultChecked={gender === 'male'}
+defaultChecked={gender === 'female'}
+
+const defaultValue = {
+  firstName: contact?.firstName || 'Obaydul',
+  lastName:  contact?.lastName ||'Islam',
+  gender: contact?.gender || 'male',
+  email: contact?.email || 'obaaydulIslam@gmail.com',
+  profession: contact?.profession || 'developer',
+  bio: contact?.bio || 'All about myself, Modify of your own if necessary',
+  image: contact?.image || 'https://randomuser.me/api/portraits/men/78.jpg',
+  dateOfBirth: contact?.dateOfBirth || new Date(),
+}
+const {firstName, lastName, email, profession, bio, image, gender} = defaultValue
+
+25. আমরা Edit Contact স্টেজে আছি নাকি Add Contact এ আছি এটা বুঝার জন্য daynamicly add kore dibo, button tayo dinamicaly change hobe.
+//  ContactForm.jsx :
+return (
+  <>
+      <h2 className='text-center mb-5'>{contact?.id? 'Edit Contact' : 'Add Contact'}</h2>
+
+      {contact?.id? 'Update Contact' : 'Add Contact'}
+  </Button>
+// 26. App.jsx --> 
+ ফাইলে আসার পরে colsole এ দেখব যে ডাটা রিসেট হয়েছে । এবং আপডেট contact peyechi.Add  
+ const updatecontact = (contact, id) => {
+  console.log(contact, id)
+}
+
+26. Contact edit & update korar pore amader nevigate korte hoi..programicaly navigar korte chaile "react router dom "  useNavigate use korte hobe. ContactForm.jsx a import korbo.
+
+// ContactForm.jsx
+import {useNavigate } from 'react-router-dom';
+
+const navigate = useNavigate()
+
+const onSubmit = data => {
+  const id = contact?.id
+  //show flash message
+  
+  //adding contacts
+  if(id) {
+      toast.success('Contact is Updated Successfully')
+      updatecontact(data, id)
+  }else {
+      toast.success('Contact is Added Successfully')
+      addContact(data)
+  }
+
+   navigate('/contacts') //this
+}
 
 
+27. আমরা এখন contact delete ar flash message add korbo. সো এখন আমরা Contact.jsx Filer button ar eventlistener ar name change korbo... handleDelet namdibo.
 
+// Contact.jsx 
+import {toast} from 'react-toastify'
 
+const handleDelete = (id) => {
+  toast.success('Contact is Deleted Successfully')
+  deleteContact(id)
+}
 
+28. Eye icon a click korle single contact open hobe. Route bebar ta deal korte hobe.
 
+// App.jsx ->
+<Route path='/contact/:id' element={<ContactDetails contacts={contacts} />} />
+
+create ContactDetails compoent 
+
+// ContactDetails.jsx  ->
+Copy card from Contac.jsx
+
+// 29. ContactDetails.jsx -->
+get state --> const [contact, setContact] = useState({})

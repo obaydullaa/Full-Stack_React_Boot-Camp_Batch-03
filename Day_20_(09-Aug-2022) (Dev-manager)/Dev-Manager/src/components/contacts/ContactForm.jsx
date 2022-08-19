@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import {Form, Button, Col, Row} from 'react-bootstrap'
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
+import {useNavigate } from 'react-router-dom';
 
 const schema = yup.object({
     firstName: yup
@@ -36,7 +37,7 @@ const schema = yup.object({
     .url('Must be a valid URL'),
   })
 
-export default function AddContact({addContact}) {
+ function ContactForm({addContact, contact, updateContact}) {
     // const [contact, setContact] = useState({
     //     firstName: '',
     //     lastName: '',
@@ -47,28 +48,30 @@ export default function AddContact({addContact}) {
     //     gender: 'male',
     //     image: '',
     // })  
-   const [birthYear, setBirthYear] = useState(new Date())
-
     const { 
         register, 
-        handleSubmit, 
-        watch, 
+        handleSubmit,
         setValue,
         reset,
         formState:{ errors, isSubmitting, isSubmitSuccessful },
-     } = useForm({
+    } = useForm({
         resolver: yupResolver(schema),
-     });
+    });
+    const [birthYear, setBirthYear] = useState(new Date())
+    
+    const navigate = useNavigate()
     
     const defaultValue = {
-        firstName: 'Obaydul',
-        lastName: 'Islam',
-        email: 'obaaydulIslam@gmail.com',
-        profession: 'developer',
-        bio: 'All about myself, Modify of your own if necessary',
-        image: 'https://randomuser.me/api/portraits/men/78.jpg',
+        firstName: contact?.firstName || 'Obaydul',
+        lastName:  contact?.lastName ||'Islam',
+        gender: contact?.gender || 'male',
+        email: contact?.email || 'obaaydulIslam@gmail.com',
+        profession: contact?.profession || 'developer',
+        bio: contact?.bio || 'All about myself, Modify of your own if necessary',
+        image: contact?.image || 'https://randomuser.me/api/portraits/men/78.jpg',
+        dateOfBirth: contact?.dateOfBirth || new Date(),
     }
-    const {firstName, lastName, email, profession, bio, image} = defaultValue
+    const {firstName, lastName, email, profession, bio, image, gender} = defaultValue
 
     useEffect(() => {
         if(isSubmitSuccessful) {
@@ -86,7 +89,6 @@ export default function AddContact({addContact}) {
       useEffect(() => {
         setValue('dateOfBirth', birthYear)
        },[birthYear]) 
-
     // const handleChange = (evt) => {
     //     setContact({
     //         ...contact,
@@ -102,17 +104,26 @@ export default function AddContact({addContact}) {
     //     //Form Submission
     //     addContact(contact)
     // }
-    const onSubmit = data => {
+    const onSubmit = (data) => {
+        const id = contact?.id
+        
         //show flash message
-        toast.success('Contact is added Successfully')
         //adding contacts
-        addContact(data)
+        if(id) {
+            toast.success('Contact is Updated Successfully')
+            updateContact(data, id)
+        }else {
+            toast.success('Contact is Added Successfully')
+            
+            addContact(data)
+        }
+         navigate('/contacts')
     }
 
     // const {firstName, lastName, email, profession, bio, dateOfBirth, gender, image} = contact
   return (
     <>
-        <h2 className='text-center mb-5'>Add Contact</h2>
+        <h2 className='text-center mb-5'>{contact?.id? 'Edit Contact' : 'Add Contact'}</h2>
         <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group as={Row} className="mb-3">
                 <Col sm={3}>
@@ -248,7 +259,7 @@ export default function AddContact({addContact}) {
                     type="radio" 
                     label='Male'
                     value='male'
-                    defaultChecked={true}
+                    defaultChecked={gender === 'male'}
                     {...register('gender')}
                     />
                     </Col>
@@ -257,6 +268,7 @@ export default function AddContact({addContact}) {
                     type="radio" 
                     label='Female'
                     value='female'
+                    defaultChecked={gender === 'female'}
                     {...register('gender')}
                     />  
                 </Col>
@@ -287,9 +299,10 @@ export default function AddContact({addContact}) {
             type='submit'
             disabled={isSubmitting? 'disabled':''}
             >
-                Add Contact
+                {contact?.id? 'Update Contact' : 'Add Contact'}
             </Button>
         </Form>
     </>
   )
 }
+export default ContactForm;
