@@ -1,19 +1,54 @@
+import { useReducer } from "react";
 import { useState } from "react";
 
+const INCREMENT = 'INCREMENT'
+const DECREMENT = 'DECREMENT'
+const RESETCOUNT = 'RESETCOUNT'
+
+const countReducer = (state, action) => {
+  const {type, payload} = action;
+  switch(type) {
+    case INCREMENT:
+      return state + payload;
+    case DECREMENT:
+      return state - payload;
+    case RESETCOUNT:
+      return 0;
+    default:
+      return state;
+  }
+  
+ }
+
+// // actin creator(redux)
+//  function increment(dispatch, num) {
+//   return dispatch({type: INCREMENT, payload: num})
+//  }
+
+
 function App() {
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
+
+ const [count, dispatch] = useReducer(countReducer, 0)
+
+
   const [pickedValue, setPickedValue] = useState(null);
   const randomCardValues = [10, 13, 16, 21];
 
   const handleIncrement = () => {
-    setCount((prevCount) => prevCount + 1);
+    // setCount((prevCount) => prevCount + 1);
+    dispatch({type: INCREMENT, payload: 1})
+  
   };
   const handleDecrement = () => {
-    setCount((prevCount) => prevCount - 1);
+    // setCount((prevCount) => prevCount - 1);
+    dispatch({type: DECREMENT, payload: 1})
+    
   };
 
   const handleReset = () => {
-    setCount(0);
+    // setCount(0);
+    dispatch({type: RESETCOUNT, payload: 1})
   };
 
   return (
