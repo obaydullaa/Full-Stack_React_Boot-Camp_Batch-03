@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Container } from 'react-bootstrap';
@@ -97,36 +97,6 @@ const initialContacts = [
 ]
 
 function App() {
-  const [contacts, setContacts] = useState(initialContacts)
-
-  const deleteContact = (id) => {
-    const updatedContact = contacts.filter((contact) => contact.id !== id)
-    setContacts(updatedContact)
-  }
-
-  const updateContact = (contactToUpdate, id) => {
-    const contactsWithUpdate = contacts.map(contact => {
-      if(contact.id === id) {
-        //Update
-        return {
-          id,
-          ...contactToUpdate,
-        }
-      }else {
-        return contact;
-      }
-    })
-    
-    setContacts(contactsWithUpdate)
-  }
-
-  const addContact = (contact) => {
-    let contactToAdd = {
-      id: uuidv4(),
-      ...contact,
-    }
-    setContacts([contactToAdd, ...contacts])
-  }
 
   return (
     <> 
@@ -151,12 +121,12 @@ function App() {
             <Route 
             path='/contacts'
             element={
-              <Contacts contacts={contacts} deleteContact={deleteContact} />
+              <Contacts />
             }  
             />
-            <Route path='/add-contact' element={<AddContact addContact={addContact}/>} />
-            <Route path='/contacts/:id' element={<ContactDetails contacts={contacts} deleteContact={deleteContact} />} />
-            <Route path='/edit-contact/:id' element={<EditContact contacts={contacts} updateContact={updateContact} />} />
+            <Route path='/add-contact' element={<AddContact />} />
+            <Route path='/contacts/:id' element={<ContactDetails />} />
+            <Route path='/edit-contact/:id' element={<EditContact />} />
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Login/>} />      
             <Route path='*' element={<NotFound/>} />

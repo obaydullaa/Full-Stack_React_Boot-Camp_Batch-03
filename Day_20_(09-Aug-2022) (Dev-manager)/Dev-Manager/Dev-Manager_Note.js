@@ -862,3 +862,238 @@ Copy card from Contac.jsx
 
 // 29. ContactDetails.jsx -->
 get state --> const [contact, setContact] = useState({})
+
+
+
+/**
+ * Applying Context API ( 49.09 minute )
+ * ================================================================================
+ */
+
+// Step: 1:-
+
+আমরা Contact এ Context API use করব। এই জন্য scr folder এ Contact.context.jsx নামের component নিব।
+src->context -> Contact.context.jsx : -->
+
+import { createContext } from "react";
+
+// create context
+export const ContactContext = createContext()
+
+// create provider
+export const ContactProvider = ({children}) => {
+
+    return  <ContactContext.Provider value={'Obaydulla'}>{children}</ContactContext.Provider>
+}
+
+// Step: 2:-
+import {ContactProvider} from './context/Contact.context'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <ContactProvider>
+      <App />
+    </ContactProvider>
+  </React.StrictMode>
+)
+
+//Step: 3 :-
+import { useContext, useState } from 'react';
+
+function App() {
+  const context = useContext(ContactContext)
+  console.log(context)
+}
+
+
+/**
+ * Refactoring form input ( 30.43 minute )
+ * ================================================================================
+ */
+1. component create in layouts folder-> FormTextInput.jsx & copy Form.Group from ContactForm.jsx
+
+// FormTextInput.jsx :-
+
+import React from 'react'
+import {Form, Col, Row} from 'react-bootstrap'
+
+function FormTextInput({name, label, placeholder, type='text', errors, register, defaultValue, ...rest}) {
+  return (
+    <Form.Group as={Row} className="mb-3">
+        <Col sm={3}>
+            <Form.Label htmlFor='firstName' column>
+               {label}
+            </Form.Label>
+        </Col>
+        <Col sm={9}>
+            <Form.Control 
+            type={type} 
+            placeholder={placeholder}
+            id={name} 
+            defaultValue={defaultValue}
+            {...register(name)}
+            isInvalid={errors?.name}
+            {...rest}
+            />
+            <Form.Control.Feedback type='invalid' >
+                {errors[name]?.message}
+            </Form.Control.Feedback>
+        </Col>
+    </Form.Group>
+  )
+}
+
+export default FormTextInput
+
+//ContactForm.jsx  :-> 
+//========================================================
+return (
+  <>
+      <h2 className='text-center mb-5'>{contact?.id? 'Edit Contact' : 'Add Contact'}</h2>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+          <FormTextInput
+          name ='firstName'
+          label = 'First Name'
+          placeholder = 'Enter your First Name'
+           errors ={errors} 
+           register={register} 
+           defaultValue={firstName}
+          />
+
+          <FormTextInput
+          name ='lastName'
+          label = 'Last Name'
+          placeholder = 'Enter your Last Name'
+           errors ={errors} 
+           register={register} 
+           defaultValue={lastName}
+          />
+
+          <FormTextInput
+              name ='email'
+              label = 'Email'
+              type='email'
+              placeholder = 'Enter your Email'
+              errors ={errors} 
+              register={register} 
+              defaultValue={email}
+          />
+          <Form.Group as={Row} className="mb-3">
+              <Col sm={3}>
+                  <Form.Label htmlFor='profession' column>
+                  Profession
+                  </Form.Label>
+              </Col>
+              <Col sm={9}>
+              <Form.Select
+               {...register('profession')} 
+               id='profession'
+               defaultValue={profession}
+               aria-label="Select your profession"
+               isInvalid={errors?.profession}
+               >
+                  <option value='' disabled>Select Your Profession</option>
+                  <option value="developer">Developer</option>
+                  <option value="designer">Designer</option>
+                  <option value="marketer">Marketer</option>
+                  </Form.Select>
+                  <Form.Control.Feedback type='invalid' >
+                      {errors?.profession?.message}
+                  </Form.Control.Feedback>
+              </Col>
+          </Form.Group>
+          <FormTextInput
+              name ='image'
+              label = 'Profile Picture'
+              type='url'
+              placeholder = 'Enter your Profile URL'
+              errors ={errors} 
+              register={register} 
+              defaultValue={image}
+          />
+           <Form.Group as={Row} className="mb-3">
+              <Col sm={3}>
+                  <Form.Label htmlFor='dateOfBirth' column>
+                      Date Of Birth
+                  </Form.Label>
+              </Col>
+              <Col sm={9}>
+                  <DatePicker
+                      selected={birthYear}
+                      name='dateOfBirth'
+                      id='dateOfBirth'
+                      placeholder='Enter Your Date'
+                      maxDate={new Date()}
+                      showYearDropdown
+                      showMonthDropdown
+                      onChange={(date) => setBirthYear(date)}
+                  />
+              </Col>
+          </Form.Group> 
+          <Form.Group as={Row} className="mb-3">
+              <Col sm={3}>
+                  <Form.Label htmlFor='gender' column>
+                      Gender
+                  </Form.Label>
+              </Col>
+              <Col xs='auto'>
+                  <Form.Check
+                  type="radio" 
+                  label='Male'
+                  value='male'
+                  defaultChecked={gender === 'male'}
+                  {...register('gender')}
+                  />
+                  </Col>
+                  <Col xs='auto'>     
+                  <Form.Check
+                  type="radio" 
+                  label='Female'
+                  value='female'
+                  defaultChecked={gender === 'female'}
+                  {...register('gender')}
+                  />  
+              </Col>
+          </Form.Group>
+          <FormTextInput
+              name ='bio'
+              label = 'Bio'
+              as='textarea'
+              type='text'
+              placeholder = 'Enter your Bio'
+              errors ={errors}  
+              register={register} 
+              defaultValue={bio}
+          />
+          <Form.Group as={Row} className="mb-3">
+              <Col sm={3}>
+                  <Form.Label htmlFor='bio' column>
+                      Bio
+                  </Form.Label>
+              </Col>
+              <Col sm={9}>
+                  <Form.Control 
+                  as='textarea'
+                  type="text" 
+                  placeholder="Bio"
+                  defaultValue={bio}
+                  {...register('bio')}
+                  isInvalid={errors?.bio}
+                  />
+                  <Form.Control.Feedback type='invalid' >
+                      {errors?.bio?.message}
+                  </Form.Control.Feedback>
+              </Col>
+          </Form.Group>
+          <Button 
+          className='text-center' 
+          variant='primary' size='md' 
+          type='submit'
+          disabled={isSubmitting? 'disabled':''}
+          >
+              {contact?.id? 'Update Contact' : 'Add Contact'}
+          </Button>
+      </Form>
+  </>
+)
+}

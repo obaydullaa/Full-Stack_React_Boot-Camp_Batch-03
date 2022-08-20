@@ -6,6 +6,7 @@ import App from './App'
 import './index.css'
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-toastify/dist/ReactToastify.css';
+import {ContactProvider} from './context/Contact.context'
 
 /**
  * Date: 09-08-2022
@@ -26,6 +27,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <ContactProvider>
+      <App />
+    </ContactProvider>
   </React.StrictMode>
 )

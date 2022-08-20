@@ -7,6 +7,7 @@ import {Form, Button, Col, Row} from 'react-bootstrap'
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
 import {useNavigate } from 'react-router-dom';
+import FormTextInput from '../../layouts/FormTextInput';
 
 const schema = yup.object({
     firstName: yup
@@ -125,66 +126,33 @@ const schema = yup.object({
     <>
         <h2 className='text-center mb-5'>{contact?.id? 'Edit Contact' : 'Add Contact'}</h2>
         <Form onSubmit={handleSubmit(onSubmit)}>
-            <Form.Group as={Row} className="mb-3">
-                <Col sm={3}>
-                    <Form.Label htmlFor='firstName' column>
-                        First Name
-                    </Form.Label>
-                </Col>
-                <Col sm={9}>
-                    <Form.Control 
-                    type="text" 
-                    placeholder="FistName"
-                    id='firstName' 
-                    defaultValue={firstName}
-                    {...register('firstName')}
-                    isInvalid={errors?.firstName}
-                    />
-                    <Form.Control.Feedback type='invalid' >
-                        {errors?.firstName?.message}
-                    </Form.Control.Feedback>
-                </Col>
-            </Form.Group>
-             <Form.Group as={Row} className="mb-3">
-                <Col sm={3}>
-                    <Form.Label htmlFor='lastName' column>
-                        LastName
-                    </Form.Label>
-                </Col>
-                <Col sm={9}>
-                    <Form.Control 
-                    type="text" 
-                    placeholder="LastName"
-                    id='lastName' 
-                    defaultValue={lastName}
-                    {...register('lastName')}
-                    isInvalid={errors?.lastName}
-                    />
-                    <Form.Control.Feedback type='invalid' >
-                        {errors?.lastName?.message}
-                    </Form.Control.Feedback>
-                </Col>
-            </Form.Group>
-            <Form.Group as={Row} className="mb-3">
-                <Col sm={3}>
-                    <Form.Label htmlFor='email' column>
-                        Email
-                    </Form.Label>
-                </Col>
-                <Col sm={9}>
-                    <Form.Control 
-                    type="email" 
-                    placeholder="Email"
-                    id='email' 
-                    defaultValue={email}
-                    {...register('email')}
-                    isInvalid={errors?.email}
-                    />
-                    <Form.Control.Feedback type='invalid' >
-                        {errors?.email?.message}
-                    </Form.Control.Feedback>
-                </Col>
-            </Form.Group>
+            <FormTextInput
+            name ='firstName'
+            label = 'First Name'
+            placeholder = 'Enter your First Name'
+             errors ={errors} 
+             register={register} 
+             defaultValue={firstName}
+            />
+
+            <FormTextInput
+            name ='lastName'
+            label = 'Last Name'
+            placeholder = 'Enter your Last Name'
+             errors ={errors} 
+             register={register} 
+             defaultValue={lastName}
+            />
+
+            <FormTextInput
+                name ='email'
+                label = 'Email'
+                type='email'
+                placeholder = 'Enter your Email'
+                errors ={errors} 
+                register={register} 
+                defaultValue={email}
+            />
             <Form.Group as={Row} className="mb-3">
                 <Col sm={3}>
                     <Form.Label htmlFor='profession' column>
@@ -209,26 +177,15 @@ const schema = yup.object({
                     </Form.Control.Feedback>
                 </Col>
             </Form.Group>
-            <Form.Group as={Row} className="mb-3">
-                <Col sm={3}>
-                    <Form.Label htmlFor='image' column>
-                    Profile Picture
-                    </Form.Label>
-                </Col>
-                <Col sm={9}>
-                    <Form.Control 
-                    type="text" 
-                    placeholder="Enter link of your profile picture"
-                    id='image' 
-                    defaultValue={image}
-                    {...register('image')}
-                    isInvalid={errors?.image}
-                    />
-                    <Form.Control.Feedback type='invalid' >
-                        {errors?.image?.message}
-                    </Form.Control.Feedback>
-                </Col>
-            </Form.Group> 
+            <FormTextInput
+                name ='image'
+                label = 'Profile Picture'
+                type='url'
+                placeholder = 'Enter your Profile URL'
+                errors ={errors} 
+                register={register} 
+                defaultValue={image}
+            />
              <Form.Group as={Row} className="mb-3">
                 <Col sm={3}>
                     <Form.Label htmlFor='dateOfBirth' column>
@@ -273,6 +230,16 @@ const schema = yup.object({
                     />  
                 </Col>
             </Form.Group>
+            <FormTextInput
+                name ='bio'
+                label = 'Bio'
+                as='textarea'
+                type='text'
+                placeholder = 'Enter your Bio'
+                errors ={errors}  
+                register={register} 
+                defaultValue={bio}
+            />
             <Form.Group as={Row} className="mb-3">
                 <Col sm={3}>
                     <Form.Label htmlFor='bio' column>

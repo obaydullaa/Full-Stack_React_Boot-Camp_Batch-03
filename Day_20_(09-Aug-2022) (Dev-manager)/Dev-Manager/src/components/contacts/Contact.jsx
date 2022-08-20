@@ -1,13 +1,16 @@
 
-import React from 'react'
+import React, { useContext } from 'react'
 
 import {Button, Card, ListGroup} from 'react-bootstrap'
 import {FaEye, FaRegTrashAlt} from 'react-icons/fa'
 import {format} from 'date-fns'
 import {toast} from 'react-toastify'
 import {Link} from 'react-router-dom'
+import { ContactContext } from '../../context/Contact.context'
 
-export default function Contact({contact, deleteContact}) {
+export default function Contact({contact}) {
+    const {deleteContact} = useContext(ContactContext)
+
     const {id, firstName, lastName, email, profession, gender, image, dateOfBirth, bio} = contact
 
     const handleDelete = (id) => {
