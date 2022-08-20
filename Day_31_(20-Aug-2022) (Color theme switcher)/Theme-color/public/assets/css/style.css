@@ -1,0 +1,35 @@
+
+/* ============= HeaderMenu Css ============= */
+
+.header-wrap .menu-wrap {
+    display: flex;
+    justify-content: end;
+  }
+  
+  header.header-wrap .navbar {
+    height: 70px;
+    border-bottom: 1px solid #e3e7ec;
+  }
+  header.header-wrap .dropdown-menu[data-bs-popper] {
+    top: 129%;
+}
+
+  /* light & dark  */
+
+#dark header.header-wrap {
+    background-color: rgba(11,17,32,.8);
+}
+
+#dark header.header-wrap .logo {
+    color: #fff;
+}
+#dark header.header-wrap .navbar-nav  a {
+    color: #fff;
+}
+#dark header.header-wrap .navbar-nav .dropdown-menu {
+    background-color: rgba(11,17,32,.8);
+    transition: .4s;
+}
+#dark header.header-wrap .navbar-nav .dropdown-menu a:hover {
+    color: rgba(11,17,32,.8);
+}
