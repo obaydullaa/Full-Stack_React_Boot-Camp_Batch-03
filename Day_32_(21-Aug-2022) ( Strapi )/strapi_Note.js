@@ -8,4 +8,8 @@
 
 Strapi provied row Data provied.
 
-1. Install Strapi: yarn create strapi-app dev-manager-backend --quickstart
+1. Install Strapi: npx create-strapi-app@latest dev-manager-backend 
+2. FrontEnd architecture create.
+3. Content Added from content manager.
+4. Every content get Permissions
+
