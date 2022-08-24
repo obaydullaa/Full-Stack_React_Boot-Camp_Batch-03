@@ -12,4 +12,5 @@ Strapi provied row Data provied.
 2. FrontEnd architecture create.
 3. Content Added from content manager.
 4. Every content get Permissions
+5. install postman local software and practice
 

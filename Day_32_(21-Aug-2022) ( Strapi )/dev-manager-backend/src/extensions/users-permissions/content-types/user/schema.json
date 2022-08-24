@@ -67,7 +67,7 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::article.article",
-      "mappedBy": "user"
+      "mappedBy": "author"
     }
   }
 }

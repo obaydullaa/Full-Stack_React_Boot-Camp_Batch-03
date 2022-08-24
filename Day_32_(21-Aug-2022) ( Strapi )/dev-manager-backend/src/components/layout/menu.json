@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_layout_menus",
+  "info": {
+    "displayName": "Menu",
+    "icon": "basketball-ball"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "link": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

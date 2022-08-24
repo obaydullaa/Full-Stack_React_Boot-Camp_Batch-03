@@ -28,11 +28,19 @@
       "target": "api::category.category",
       "inversedBy": "articles"
     },
-    "user": {
+    "author": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "articles"
+    },
+    "mainImg": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

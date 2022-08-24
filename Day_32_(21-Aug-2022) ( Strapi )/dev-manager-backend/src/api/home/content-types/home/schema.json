@@ -1,0 +1,46 @@
+{
+  "kind": "singleType",
+  "collectionName": "homes",
+  "info": {
+    "singularName": "home",
+    "pluralName": "homes",
+    "displayName": "Home",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "homeFeatured": {
+      "type": "component",
+      "repeatable": false,
+      "component": "layout.featured-post"
+    },
+    "homePopular": {
+      "type": "component",
+      "repeatable": false,
+      "component": "layout.popular-post"
+    },
+    "featuredArea": {
+      "type": "dynamiczone",
+      "components": [
+        "layout.featured-post",
+        "layout.popular-post"
+      ]
+    },
+    "mainMenu": {
+      "type": "component",
+      "repeatable": true,
+      "component": "layout.menu"
+    }
+  }
+}
