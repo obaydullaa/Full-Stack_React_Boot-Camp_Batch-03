@@ -1,8 +1,10 @@
-import React from 'react'
-import {Button, Navbar, Container, Nav, Form, NavDropdown} from 'react-bootstrap';
+import React, { useContext } from 'react'
+import { AuthContext } from '../context/Auth.context';
 import {NavLink, Link} from 'react-router-dom'
+import {Button, Navbar, Container, Nav, Form, NavDropdown} from 'react-bootstrap';
 
 export default function Header() {
+    const {logout, user} = useContext(AuthContext);
   return (
     <>  
         <Navbar bg="light" expand="sm">
@@ -15,10 +17,23 @@ export default function Header() {
                 style={{ maxHeight: '100px' }}
                 navbarScroll
                 >
-                    <Nav.Link as={NavLink} to='/contacts' >Contacts</Nav.Link>
-                    <Nav.Link as={NavLink} to='/add-contact' >Add Contact</Nav.Link>
-                    <Nav.Link as={NavLink} to='/register' >Register</Nav.Link>
-                    <Nav.Link as={NavLink} to='/login' >Login</Nav.Link>
+                    {user && 
+                        <>
+                            <Nav.Link as={NavLink} to='/contacts' >Contacts</Nav.Link>
+                            <Nav.Link as={NavLink} to='/add-contact' >Add Contact</Nav.Link>
+                            <Nav.Link as={NavLink} to='/dashboard' >Dashboard</Nav.Link>
+                            <Nav.Link onClick={logout}>Logout</Nav.Link>
+                        </>
+                    }
+                    {!user && 
+                        <>
+                            <Nav.Link as={NavLink} to='/register' >Register</Nav.Link>
+                            <Nav.Link as={NavLink} to='/login' >Login</Nav.Link>
+                        </>
+                    }
+
+                    
+                    
                 </Nav>
                 <Form className="d-flex">
                 <Form.Control

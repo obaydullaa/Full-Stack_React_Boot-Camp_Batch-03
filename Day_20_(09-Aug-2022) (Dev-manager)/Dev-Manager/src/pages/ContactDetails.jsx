@@ -11,7 +11,7 @@ function ContactDetails({}) {
     const [contact, setContact] = useState({})
     const {id} = useParams()
     const navigate = useNavigate()
-    const foundContact = contacts.find((contact) => contact.id === id)
+    const foundContact = contacts.find((contact) => contact.id === +id)
     useEffect(() => {
         if(id && foundContact){
             setContact(foundContact)
@@ -20,7 +20,6 @@ function ContactDetails({}) {
     }, [id])
 
     const handleDelete = (id) => {
-        toast.success('Contact is deleted success')
         deleteContact(id)
         navigate('/contacts')
     }

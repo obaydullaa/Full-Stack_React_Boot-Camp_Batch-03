@@ -1,0 +1,10 @@
+
+{
+    // Sidebar color 
+//================
+  "workbench.colorCustomizations": {
+    "icon.foreground": "#91ff00",
+    "symbolIcon.colorForeground": "#ff0000",
+    "icon.colorForeground": "#ff0000"
+  }
+}

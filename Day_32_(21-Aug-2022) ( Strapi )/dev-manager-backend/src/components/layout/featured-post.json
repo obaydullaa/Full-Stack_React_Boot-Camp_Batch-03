@@ -5,11 +5,5 @@
     "icon": "calculator"
   },
   "options": {},
-  "attributes": {
-    "article": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::article.article"
-    }
-  }
+  "attributes": {}
 }

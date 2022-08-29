@@ -63,10 +63,10 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "articles": {
+    "contacts": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::article.article",
+      "target": "api::contact.contact",
       "mappedBy": "author"
     }
   }

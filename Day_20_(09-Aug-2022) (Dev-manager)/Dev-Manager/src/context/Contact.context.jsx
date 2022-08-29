@@ -1,5 +1,11 @@
-import { createContext, useState } from "react";
-import {v4 as uuidv4} from 'uuid'
+import { createContext, useContext, useEffect, useReducer, useState } from "react";
+import contactsReducer from "../components/contacts/reduce";
+import { DELETE_CONTACT, UPDATE_CONTACT, ADD_CONTACT, lOAD_CONTACTS } from "../components/contacts/types";
+import { axiosPrivateInstance } from "../config/axios";
+import { formateContact } from "../utils/formateContact";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { AuthContext } from "./Auth.context";
 
 // create context
 export const ContactContext = createContext()
@@ -13,7 +19,7 @@ const initialContacts = [
       profession: 'Web Developer',
       gender: 'female',
       image: 'https://randomuser.me/api/portraits/women/75.jpg',
-      dateOfBirth: '05/11/2021',
+      dateOfBirth: new Date(),
       bio: 'All About me',
     },
     {
@@ -22,10 +28,9 @@ const initialContacts = [
       lastName: 'McPhilip',
       email: 'imcphilip1@toplist.cz',
       profession: 'Software Developer',
-  
       gender: 'male',
       image: 'https://randomuser.me/api/portraits/men/75.jpg',
-      dateOfBirth: '04/04/2022',
+      dateOfBirth: new Date(),
       bio: 'All About me',
     },
     {
@@ -37,7 +42,7 @@ const initialContacts = [
   
       gender: 'male',
       image: 'https://randomuser.me/api/portraits/men/78.jpg',
-      dateOfBirth: '17/05/2022',
+      dateOfBirth: new Date(),
       bio: 'All About me',
     },
     {
@@ -48,7 +53,7 @@ const initialContacts = [
       profession: 'Data entry specialist',
       gender: 'female',
       image: 'https://randomuser.me/api/portraits/women/80.jpg',
-      dateOfBirth: '30/07/2022',
+      dateOfBirth: new Date(),
       bio: 'All About me',
     },
     {
@@ -59,7 +64,7 @@ const initialContacts = [
       gender: 'male',
       profession: 'Data scientist',
       image: 'https://randomuser.me/api/portraits/men/56.jpg',
-      dateOfBirth: '21/03/2022',
+      dateOfBirth: new Date(),
       bio: 'All About me',
     },
     {
@@ -70,7 +75,7 @@ const initialContacts = [
       profession: 'python Developer',
       gender: 'female',
       image: 'https://randomuser.me/api/portraits/women/81.jpg',
-      dateOfBirth: '16/01/2022',
+      dateOfBirth: new Date(),
       bio: 'All About me',
     },
     {
@@ -81,52 +86,90 @@ const initialContacts = [
       gender: 'male',
       profession: 'CPA Marketer',
       image: 'https://randomuser.me/api/portraits/men/80.jpg',
-      dateOfBirth: '05/02/2022',
+      dateOfBirth: new Date(),
       bio: 'All About me',
     },
   ]
+  // create provider
+  export const ContactProvider = ({children}) => {
+    
+    const [contacts, dispatch] = useReducer(contactsReducer, initialContacts)
+    const [loaded, setLoaded] =useState(false)
+    const {user} = useContext(AuthContext)
+    
+    const navigate = useNavigate();
+    useEffect(() => {
+      (async () => {
+        await loadedContacts()
+      })()
+    },[])
 
-// create provider
-export const ContactProvider = ({children}) => {
-    const [contacts, setContacts] = useState(initialContacts)
+    const loadedContacts = async () => {
+     try{
+      const response = await axiosPrivateInstance.get('/contacts');
+      const loadedContacts = response.data.data.map(contact => 
+        formateContact(contact)
+        )
+        dispatch({type: lOAD_CONTACTS, payload: loadedContacts})
+        setLoaded(true)
+      // console.log(loadedContacts)
+    
+     }catch(err) {
+      console.log(err.response)
+     }
+    }
 
-    const deleteContact = (id) => {
-        const updatedContact = contacts.filter((contact) => contact.id !== id)
-        setContacts(updatedContact)
+    const deleteContact = async(id) => {
+      try{
+        const response = await axiosPrivateInstance.delete(`/contacts/${id}`)
+        console.log(response.data)
+        dispatch({type: DELETE_CONTACT, payload: response.data.data.id})
+        // show toast message 
+        toast.success('Contact is deleted successfully')
+        // Navigate
+        navigate=('/contacts')
+      }catch(err){
+        toast.error(err.response?.data?.error?.message)
+        console.log(err.response)
       }
+    }
 
       const updateContact = (contactToUpdate, id) => {
-        const contactsWithUpdate = contacts.map(contact => {
-          if(contact.id === id) {
-            //Update
-            return {
-              id,
-              ...contactToUpdate,
-            }
-          }else {
-            return contact;
-          }
-        })
-        
-        setContacts(contactsWithUpdate)
+        dispatch({type: UPDATE_CONTACT, payload: {contactToUpdate, id}})
       }
     
-      const addContact = (contact) => {
-        let contactToAdd = {
-          id: uuidv4(),
-          ...contact,
+      const addContact = async(contactData) => {
+        contactData = {
+          author: user.id,
+          ...contactData, 
         }
-        setContacts([contactToAdd, ...contacts])
+        try {
+          const response = await axiosPrivateInstance.post('/contacts', {
+            data: contactData,
+          })
+
+          console.log(response.data)
+          const contact = formateContact(response.data.data)
+          //dispatch here
+          dispatch({type: ADD_CONTACT, payload: contact})
+          //show flash message
+          toast.success("Contact is Added Successfully");
+          //redirect to contacts
+          navigate("/contacts");
+        }catch(err) {
+          toast.error(err.response?.data?.error?.message)
+          console.log(err.response)
+        }
+
       }
 
-
    const value = {
+        loaded,
         contacts,
         deleteContact,
         updateContact,
         addContact,
     }
-
 
     return  <ContactContext.Provider value={value}>{children}</ContactContext.Provider>
 }
