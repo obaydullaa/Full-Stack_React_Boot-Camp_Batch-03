@@ -1,0 +1,19 @@
+/**
+ * Class Topic:
+ * -----------------
+ *  React Advance Hook
+ * -useReduce
+ * -useCallback
+ * -useMemo
+ * -memo (Higher order function)
+ * 
+ * Context API
+ * parent-children-children (props Drilling)
+ * 
+ */
+ 
+ Memo = check props and re-render accordingly
+        // Optional (it costs)
+        // Experience is good (don't touch)
+        // Experience is bad/slow(performance optimization)
+        // Before deploying to production

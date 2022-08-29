@@ -1,69 +1,22 @@
-import { useState } from 'react';
-import OddOrEven from './OddOrEven';
-import CardNum from './CardNum';
-import AppClass from './Appclass';
-
-import './style.css';
-
-function App() {
-
-  const [count, setCount ] = useState(0)
-  const randomCards = [30, 33, 37, 42]
-  // const [randomCards, setRandomCards ] = useState()
-  const [pickedNum, setPickedNum ] = useState(null)
-
-  const incrementCount = () => {
-    // setCount( count + 1);
-    setCount((prevCount) => prevCount + 1)
-  }
-
-  const decrementCount = () => {
-    setCount(prevCount => {
-      return prevCount - 1;
-    })
-  }
-
-  const resetCount = () => {
-    setCount(0);
-  }
-
-  const pickedValueAlt = (cardValue) => {
-    setPickedNum(cardValue)
-  }
-
-  return (
-    <div className="app">
-      <p>Count: {count}</p>
-      <button onClick={incrementCount}>Increment</button>
-      <button onClick={decrementCount}>Decrement</button>
-      <button onClick={resetCount} >Reset</button>
-      <OddOrEven count={count} pickedNum={pickedNum}/>
-
-      {randomCards.map((cardValue, index) => {
-        return (
-          <CardNum 
-            key={cardValue}
-            cardValue={cardValue}
-            setPickedNum={setPickedNum}
-            pickedValueAlt ={pickedValueAlt}
-          />
-        )
-      })}
-      <AppClass />
-      
-    </div>
-  )
-  
-}
-
-export default App;
-
-/*
 import { useState } from 'react'; 
 import OddOrEven  from './OddOrEven';
 import CardNum from './CardNum';
 
 import './style.css';
+
+/**
+ * Class Topic:
+ * -----------------
+ *  React Advance Hook
+ * -useReduce
+ * -useCallback
+ * -useMemo
+ * -memo (Higher order function)
+ * 
+ * Context API
+ * parent-children-children (props Drilling)
+ * 
+ */
 
 function App() {
   const [count, setCount] = useState(0);
@@ -116,4 +69,4 @@ function App() {
 
 export default App;
 
-*/
+

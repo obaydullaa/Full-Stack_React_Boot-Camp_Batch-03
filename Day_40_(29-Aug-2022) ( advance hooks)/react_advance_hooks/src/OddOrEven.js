@@ -9,7 +9,7 @@ const OddOrEven = ({count, pickedNum}) => {
 
             <h3>Card Num</h3>
             <h4>{pickedNum % 2 === 0 ? 'Even': 'Odd'}</h4>
-        </div>
+        </div>  
     )
 }
 
