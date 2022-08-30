@@ -68,7 +68,8 @@ function ContactForm({ addContact, contact, updateContact }) {
     profession: contact?.profession || "developer",
     bio: contact?.bio || "All about myself, Modify of your own if necessary",
     image: contact?.image || "https://randomuser.me/api/portraits/men/78.jpg",
-    dateOfBirth: contact?.dateOfBirth || new Date(),
+    dateOfBirth: 
+      (contact?.dateOfBirth && new Date(contact?.dateOfBirth)) || new Date(),
   };
   const {
     firstName,
@@ -120,7 +121,6 @@ function ContactForm({ addContact, contact, updateContact }) {
   //  console.log(data)
    // adding contacts
    if (id) {
-     toast.success("Contact is Updated Successfully");
      updateContact(data, id);
     } else {
       addContact(data);

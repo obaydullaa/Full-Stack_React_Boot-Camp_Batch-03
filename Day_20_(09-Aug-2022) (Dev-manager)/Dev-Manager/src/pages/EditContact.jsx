@@ -7,7 +7,8 @@ function EditContact() {
   const {contacts, updateContact} = useContext(ContactContext)
   const params = useParams()
   const {id} = params
-  const foundContact = contacts.find((contact) => contact.id === id)
+  const foundContact = contacts.find((contact) => contact.id === +id)
+  console.log(foundContact)
 
   return <ContactForm contact={foundContact} updateContact={updateContact} />
 }

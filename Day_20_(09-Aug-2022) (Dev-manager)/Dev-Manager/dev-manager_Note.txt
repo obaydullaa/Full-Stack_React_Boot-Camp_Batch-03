@@ -1857,3 +1857,76 @@ Contact.context.jsx -->
       console.log(err.response)
     }
   }
+
+   /**
+  * 20.1. Eddit_Update
+  * ==========================================
+  */
+
+1. Eddit korar jonno id ke dore korte hobe, server thake je id astase seta string hisabe astase tai seta ke number a conver korte hobe. ai jonno id ar age + dibo ==> +id
+  EdditContact.jsx -> 
+        const foundContact = contacts.find((contact) => contact.id === +id) // this
+
+2. ContactFrom.jsx ar modde toast message add kora hoise akhon jeheto server thake data astase tai amr ai level a sure na data arse kina. server a add hoise kina seta amra deal korese context a. tai amra toast message copy kore Contact.context.jsx er update function ar modde rakbo.
+
+Contact.context.jsx  ->
+       toast.success("Contact is Updated Successfully");
+
+
+            const updateContact = async (contactToUpdate, id) => {
+        contactToUpdate = {
+          author: user.id,
+          ...contactToUpdate, 
+        }
+        try{
+          //send request to the server
+          // successfully response 
+
+          const response = await axiosPrivateInstance.put(`/contacts/${id}?populate=*`, 
+          {
+            data: contactToUpdate,
+          }
+          )
+           
+          const contact = formateContact(response.data.data)
+          console.log(contact)
+
+          //dispatch here
+          dispatch({type:  UPDATE_CONTACT, payload: {id: contact.id, contact}})
+
+          // //show flash message
+          toast.success("Contact is Updated Successfully");
+          // //redirect to contacts
+          navigate(`/contacts/${contact.id}`); 
+
+        }catch(err) {
+          console.log(err.response?.data?.error?.message)
+        }
+      }
+
+context -> reude.js
+          case UPDATE_CONTACT:
+      const {id, contact: contactToUpdate} = payload; //this
+      const contacts = state.map(contact => {
+        if(contact.id === id) {
+          //Update
+          return {
+            id,
+            ...contactToUpdate,
+          }
+        }else {
+          return contact;
+        }
+      })
+
+
+/*
+*  20.2 : Authorization
+*/
+
+route - policy-controller - services -  (Model)
+
+    Middleware 
+
+1, study strapi documentation Development section
+
