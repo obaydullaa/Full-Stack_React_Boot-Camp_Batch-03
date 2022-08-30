@@ -1968,7 +1968,7 @@ module.exports = createCoreController('api::contact.contact', ({strapi}) => ({
             populate: "author"
         }
         );
-        const response = super.delete(ctx);
+        const response =  super.delete(ctx);
         return response;
     },
 
@@ -2017,5 +2017,37 @@ module.exports = createCoreController('api::contact.contact', ({strapi}) => ({
 }));
 
 
+4. amra frontend thake author deal korse na .. tai eta fele dibo...
 
+  Contact.context.jsx -> 
 
+        const addContact = async(contactData) => {
+        contactData = {  // it added in backend... // reve this line...
+          // author: user.id,  
+          ...contactData, 
+        }
+
+Update ------------>
+      async updated(ctx) {
+        const {id: authId} = ctx.state.user
+        const {id} = ctx.params;
+
+        try {
+            const contact = await strapi.entityService.findOne(
+                "api::contact.contact", 
+                +id,
+                {
+                populate: "author"
+            }
+            );
+            if(!contact) return ctx.notFound('contact is not found to be Updated')
+            if(contact.author.id !== authId) 
+                return ctx.unauthorized('Your are not the owner of the contact the contact')
+    
+            const response = await super.update(ctx);
+            return response;
+
+        }catch(err) {
+            ctx.internalServerError('Unknown arrow')
+        }
+    }
