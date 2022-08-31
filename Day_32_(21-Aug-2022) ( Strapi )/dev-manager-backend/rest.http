@@ -1,0 +1,8 @@
+###
+GET http://localhost:1337/api/blog
+
+###
+GET http://localhost:1337/api/contacts?populate=*
+
+###
+GET http://localhost:1337/api/posts?populate=*

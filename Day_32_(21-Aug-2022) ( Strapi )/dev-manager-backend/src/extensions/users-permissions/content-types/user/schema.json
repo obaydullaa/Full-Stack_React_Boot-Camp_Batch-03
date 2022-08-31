@@ -68,6 +68,12 @@
       "relation": "oneToMany",
       "target": "api::contact.contact",
       "mappedBy": "author"
+    },
+    "posts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::post.post",
+      "mappedBy": "post_user"
     }
   }
 }

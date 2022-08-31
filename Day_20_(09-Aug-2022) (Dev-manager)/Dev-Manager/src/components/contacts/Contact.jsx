@@ -1,17 +1,20 @@
 
 import React, { useContext } from 'react'
 
-import {Button, Card, ListGroup} from 'react-bootstrap'
-import {FaEye, FaRegTrashAlt} from 'react-icons/fa'
-import {format} from 'date-fns'
-import {toast} from 'react-toastify'
-import {Link} from 'react-router-dom'
+import { format } from 'date-fns'
+import { Button, Card, ListGroup } from 'react-bootstrap'
+import { FaEye, FaRegTrashAlt } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
+import { AuthContext } from '../../context/Auth.context'
 import { ContactContext } from '../../context/Contact.context'
 
 export default function Contact({contact}) {
     const {deleteContact} = useContext(ContactContext)
+    const {user} = useContext(AuthContext)
 
-    const {id, firstName, lastName, email, profession, gender, image, dateOfBirth, bio} = contact
+    const {id, firstName, lastName, email, profession, gender, image, dateOfBirth, bio} = contact  
+
+    const isOwner = user.id === contact.author.data.id;
 
     const handleDelete = (id) => {
         deleteContact(id)
@@ -37,16 +40,23 @@ export default function Contact({contact}) {
                             </ListGroup.Item>
                         </ListGroup>
                         <div className="card-btn mt-3">
-                            <Card.Link as={Link} to={`/contacts/${id}`}>
+                             <Card.Link as={Link} to={`/contacts/${id}`}>
                                 <Button variant='warning ms-3' size='md' type='view'>
                                     <FaEye />
                                 </Button>
-                                </Card.Link>
-                                <Card.Link>
-                                <Button variant='danger ms-3' size='md' onClick={() => handleDelete(id)}>
-                                    <FaRegTrashAlt />
-                                </Button>
                             </Card.Link>
+                            {
+                                isOwner && (
+                                    <>
+                                        <Card.Link>
+                                            <Button variant='danger ms-3' size='md' onClick={() => handleDelete(id)}>
+                                                <FaRegTrashAlt />
+                                            </Button>
+                                        </Card.Link>
+                                    </>
+                                )
+                            }
+
                         </div>
                     </Card.Body>
             </div>

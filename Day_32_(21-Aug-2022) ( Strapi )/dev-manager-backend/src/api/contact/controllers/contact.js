@@ -13,6 +13,8 @@ module.exports = createCoreController('api::contact.contact', ({strapi}) => ({
         // console.log(ctx.request.body);
         // console.log(id, typeof id);
 
+        console.log(ctx.state.user);
+
         const {id} = ctx.params;
         const {id: authId} = ctx.state.user
         try{
@@ -20,8 +22,8 @@ module.exports = createCoreController('api::contact.contact', ({strapi}) => ({
                 "api::contact.contact", 
                 +id,
                 {
-                populate: "author"
-            }
+                    populate: "author"
+                }
             );
     
             if(!contact) return ctx.notFound('contact is not found to be deleted')

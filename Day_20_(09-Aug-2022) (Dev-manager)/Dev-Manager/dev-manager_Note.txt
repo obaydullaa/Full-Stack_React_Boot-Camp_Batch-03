@@ -2051,3 +2051,77 @@ Update ------------>
             ctx.internalServerError('Unknown arrow')
         }
     }
+
+
+
+5. amader je user ar contact sei user Eddit & contact dakte parbe.. eta korar jonno amader user ar id lagbe ContactDetails.jsx a user ar id nai. amra uthContext ar maddome id ta pate pare.. and amra Contact.context.jsx a je khan thake request pathaise server asekhame populate kore dibo tahole amra ContactDetails.jsx a user ar id pabo.
+ Contact.contex.jsx  ->
+  const loadedContacts = async () => {
+     try{
+      const response = await axiosPrivateInstance.get('/contacts?populate=*'); // this
+
+
+
+  ContactDetails.jsx -> 
+     function ContactDetails({}) {
+    const {contacts, deleteContact} = useContext(ContactContext)
+    const { user } = useContext(AuthContext)  // this
+    
+    const [contact, setContact] = useState({})
+    const {id} = useParams()
+    const navigate = useNavigate()
+    const foundContact = contacts.find((contact) => contact.id === +id) // this
+
+    useEffect(() => {
+        if(id && foundContact){
+            setContact(foundContact)
+        }
+
+    }, [id])
+
+    const isOwner = user.id === foundContact.author.data.id;
+
+
+  {
+  isOwner && (  // this  ....
+      <>
+          <Card.Link as={Link} to={`/edit-contact/${id}`}>
+              <Button variant='warning ms-3' size='md' type='view'>
+                  <FaPencilAlt />
+              </Button>
+          </Card.Link>
+          <Card.Link>
+              
+              <Button variant='danger ms-3' size='md' onClick={() => handleDelete(id)}>
+                  <FaRegTrashAlt />
+              </Button>
+          </Card.Link>
+      </>
+  )}
+
+
+
+same kaj amra contact a korbo.. mane amra ja korbo seta holo contact a je kina user na se 'eddit' and 'update' icon dakte pabe na
+
+Contact.jsx --> 
+  export default function Contact({contact}) {
+    const {deleteContact} = useContext(ContactContext)
+    const {user} = useContext(AuthContext) // this
+
+    const {id, firstName, lastName, email, profession, gender, image, dateOfBirth, bio} = contact  
+
+    const isOwner = user.id === contact.author.data.id; // this
+
+      {
+          isOwner && (  // this.......
+              <>
+                  <Card.Link>
+                      <Button variant='danger ms-3' size='md' onClick={() => handleDelete(id)}>
+                          <FaRegTrashAlt />
+                      </Button>
+                  </Card.Link>
+              </>
+          )
+      }
+
+

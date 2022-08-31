@@ -96,8 +96,8 @@ const initialContacts = [
     const [contacts, dispatch] = useReducer(contactsReducer, initialContacts)
     const [loaded, setLoaded] =useState(false)
     const {user} = useContext(AuthContext)
-    
     const navigate = useNavigate();
+
     useEffect(() => {
       (async () => {
         await loadedContacts()
@@ -106,7 +106,7 @@ const initialContacts = [
 
     const loadedContacts = async () => {
      try{
-      const response = await axiosPrivateInstance.get('/contacts');
+      const response = await axiosPrivateInstance.get('/contacts?populate=*');
       const loadedContacts = response.data.data.map(contact => 
         formateContact(contact)
         )
