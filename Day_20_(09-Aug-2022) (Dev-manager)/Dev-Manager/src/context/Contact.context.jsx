@@ -127,7 +127,7 @@ const initialContacts = [
         // show toast message 
         toast.success('Contact is deleted successfully')
         // Navigate
-        navigate=('/contacts')
+        // navigate=('/contacts')
       }catch(err){
         toast.error(err.response?.data?.error?.message)
         console.log(err.response)

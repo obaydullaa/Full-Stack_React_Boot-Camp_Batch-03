@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React, {createContext, useEffect, useState } from "react"
 import { useNavigate, useLocation } from 'react-router-dom'
 import { toast } from "react-toastify"
-import { axiosPublicInstance } from "../config/axios"
+import { axiosPublicInstance, axiosPrivateInstance } from "../config/axios"
+import axios from "axios"
 
 
 export const AuthContext = React.createContext()
@@ -10,6 +11,9 @@ export const AuthContext = React.createContext()
 
 export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(loadedUser ? loadedUser : null)
+    const [triggerDelete, setTriggerDelete] = useState(false)
+    const [userContacts, setUserContacts] = useState(null)
+    const [loaded, setLoaded] = useState(false)
     const [token, setToken] = useState(loadedToken ? loadedToken : null)
     const navigate = useNavigate()
     const location = useLocation();
@@ -39,6 +43,26 @@ export const AuthProvider = ({children}) => {
             toast.error(err.response?.data?.error?.message)
         }
         
+    }   
+    
+    useEffect(() => {
+        if(user) {
+            (async() => {
+                await loadUserContact();
+            })()
+        }
+    }, [user, triggerDelete])
+
+    const loadUserContact = async () => {
+        try{
+            const response = await axiosPrivateInstance.get('/users/me?populate=contacts')
+            console.log(response.data)
+            setUserContacts(response.data.contacts)
+            setLoaded(true); 
+        }catch(err) {
+            console.log(err.response)
+            setLoaded(true);
+        }
     }
 
     const login = async (data) => {
@@ -76,11 +100,14 @@ export const AuthProvider = ({children}) => {
     }
 
     const value = {
+        setTriggerDelete,
+        loaded,
+        userContacts,
         registerUser,
         login,
         logout,
         user,
-        token,
+        token, 
     }
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 } 

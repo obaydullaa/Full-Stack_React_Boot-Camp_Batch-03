@@ -16,6 +16,11 @@ import Register from '../pages/Register';
 import Dashboard from '../pages/Dashboard';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublickRoute';
+import Profile from '../pages/Profile';
+import ManagePassword from '../pages/ManagePassword';
+import UserContactList from '../pages/UserContactList';
+import ForgotPassword from '../pages/ForgotPassword';
+import ResetPassword from '../pages/ResetPassword';
 
 function App() {
 
@@ -52,6 +57,7 @@ function App() {
                 <AddContact />
               </PrivateRoute>
             } />
+
             <Route path='/contacts/:id' 
             element={
               <PrivateRoute>
@@ -72,7 +78,16 @@ function App() {
               <PrivateRoute>
                 <Dashboard />
               </PrivateRoute>
-            } />
+              }
+            >
+
+              <Route index element={<Profile />} /> 
+              <Route path='profile' element={<Profile />} /> 
+              <Route path='manage-password' element={<ManagePassword />} /> 
+              <Route path='contacts' element={<UserContactList />} /> 
+            </Route>
+            <Route path='/forgot-password' element={<ForgotPassword />} />
+            <Route path='/reset-password' element={<ResetPassword />} />
 
             <Route path='/register' 
             element={

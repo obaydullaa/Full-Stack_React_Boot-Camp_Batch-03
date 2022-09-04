@@ -3,7 +3,7 @@
     // Sidebar color 
 //================
 
-  "workbench.colorCustomizations": {
+"workbench.colorCustomizations": {
     "activityBar.background": "#6ff304",
     "titleBar.activeBackground": "#69e024",
     "titleBar.activeForeground": "#5809ce",
@@ -12,5 +12,4 @@
     "icon.colorForeground": "#ff0000",
     "activityBar.inactiveForeground": "#524747"
   }
-
 }

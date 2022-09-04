@@ -25,7 +25,8 @@
  *      npm install @hookform/resolvers yup
  * 5. react toastify github pages  -> https://fkhadra.github.io/react-toastify/introduction/
  * 6. axios install -------> yarn add axios
- * 
+ * 7 nstall Email provider -> npm install @strapi/provider-email-sendgrid 
+ *
  */
 
 /**
@@ -2124,4 +2125,211 @@ Contact.jsx -->
           )
       }
 
+/*
+* 21.1_ Forgot_rest_passwoed (01-09-22)
+*===========================================================================
+*
+* Nested Routing
+* Dashboard
+* Forgot password
+* Email Sending
+*
+*/
+   **1.  Nested Routing **
+    i. create route 
+    ii. parent component add Outlate Component
+        <Route path='/dashboard' 
+        element={
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+          }
+        >
 
+          <Route index element={<Profile />} /> 
+          <Route path='profile' element={<Profile />} /> 
+          <Route path='manage-password' element={<ManagePassword />} /> 
+          <Route path='contacts' element={<UserContactList />} /> 
+        <Route />
+
+    Dashboard.jsx -->
+
+function Dashboard() {
+  return (
+    <Tab.Container id="list-group-tabs-example" >
+      <Row>
+        <Col sm={4}>
+          <ListGroup>
+            <ListGroup.Item action as={NavLink} to="profile"> this
+              Profile
+            </ListGroup.Item>
+            <ListGroup.Item action as={NavLink} to="contacts"> this
+              Contacts
+            </ListGroup.Item>
+            <ListGroup.Item action as={NavLink} to="manage-password"> this
+              Manage Password
+            </ListGroup.Item>
+          </ListGroup>
+        </Col>
+        <Col sm={8}>
+          <Tab.Content>
+            <Outlet /> this
+          </Tab.Content>
+        </Col>
+      </Row>
+    </Tab.Container>
+  );
+}
+
+2. Login ar commponent copy kore FrogotPassword.jsx fill a rakbo... and content golo change korbo...
+
+3. Explor strapi documentation   -> Strapi Development -> User & Permition & search Email.
+4. Install Email provider -> npm install @strapi/provider-email-sendgrid 
+5. Strapi Server : config -> plugins.js ->
+  copy from documentation 
+      module.exports = ({ env }) => ({
+    // ...
+    email: {
+      config: {
+        provider: 'sendgrid',
+        providerOptions: {
+          apiKey: env('SENDGRID_API_KEY'),
+        },
+        settings: {
+          defaultFrom: 'myemail@protonmail.com',
+          defaultReplyTo: 'myemail@protonmail.com',
+        },
+      },
+    },
+    // ...
+  });
+
+
+/*
+* 21.3 Managing Dashboard
+* 
+*
+*/
+
+1. Ekta user ar under koita post ase seta amra dashboard a dakhbo dahakanor jonno amader strapi dashboard thake setting -> role -> Authenticated ->user-permition thake me check mark korte hobe.
+
+2. User ar info dakhabo ekmatro login korar pore tai amader aikhane condition add korte hobe.
+
+  Auth.context.jsx ->
+
+    const [userContacts, setUserContacts] = useState(null)
+    const [loaded, setLoaded] = useState(false)
+    const [triggerDelete, setTriggerDelete] = useState(false)
+
+        useEffect(() => {
+        if(user) {
+            (async() => {
+                await loadUserContact();
+            })()
+        }
+    }, [user, triggerDelete])
+
+    const loadUserContact = async () => {
+        try{
+            const response = await axiosPrivateInstance.get('/users/me?populate=contacts')
+            console.log(response.data)
+            setUserContacts(response.data.contacts)
+            setLoaded(true); 
+        }catch(err) {
+            console.log(err.response)
+            setLoaded(true);
+        }
+    }
+
+
+  UserContactList.jsx -> 
+
+import React from 'react'
+import { AuthContext } from '../context/Auth.context'
+import { Button, Table } from 'react-bootstrap'
+import { useContext } from 'react'
+import { ContactContext } from '../context/Contact.context'
+import { Link } from 'react-router-dom'
+
+function UserContactList() {
+  const {userContacts, loaded, setTriggerDelete} = useContext(AuthContext);
+  const {deleteContact} = useContext(ContactContext);
+
+  const handleDelete = (id) => {
+    deleteContact(id)
+    setTriggerDelete(true)
+  }
+
+  return ( loaded && (
+    <Table striped>
+       <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Profession</th>
+            <th>Delete</th>
+            <th>Edit</th>
+          </tr>
+       </thead>
+       <tbody>
+        {userContacts.map((userContact) => {
+          return (
+            <tr key={userContact.id}>
+              <td>{userContact.id}</td>
+              <td>{userContact.firstName}</td>
+              <td>{userContact.lastName}</td>
+              <td>{userContact.email}</td>
+              <td>{userContact.profession}</td>
+              <td>
+                <Button variant='danger' onClick={() => handleDelete(userContact.id)}> Delete </Button>
+              </td>
+              <td>
+                <Button variant='secondary' as={Link} to={`/edit-contact/${userContact.id}`}> Edit </Button>
+              </td>
+            </tr> 
+          )
+        })}
+       </tbody>
+       
+    </Table>
+  )
+  
+  )
+  
+}
+
+export default UserContactList
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const { token } = useContext(AuthContext)
+
+  useEffect(() => {
+    if (token) {
+      ;(async () => {
+        await loadContacts()
+      })()
+    }
+  }, [token])

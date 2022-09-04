@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from "yup";
 import { AuthContext } from '../context/Auth.context';
 import FormTextInput from '../layouts/FormTextInput';
+import { Link } from 'react-router-dom';
 
 const schema = yup.object({
   email: yup
@@ -60,6 +61,7 @@ function Login() {
           type='password'
           defaultValue='abcdeFf1@'
         />
+        <p>Forgot Password ? <Link to='/forgot-password'>Click Here</Link></p>
 
         <Button
           variant='primary'
