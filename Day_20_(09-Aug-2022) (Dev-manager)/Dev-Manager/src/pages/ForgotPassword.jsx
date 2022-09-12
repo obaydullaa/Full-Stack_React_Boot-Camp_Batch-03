@@ -7,6 +7,8 @@ import * as yup from "yup";
 import { AuthContext } from '../context/Auth.context';
 import FormTextInput from '../layouts/FormTextInput';
 import { Link } from 'react-router-dom';
+import { axiosPrivateInstance, axiosPublicInstance } from '../config/axios';
+import { toast } from 'react-toastify';
 
 const schema = yup.object({
   email: yup
@@ -27,13 +29,19 @@ function ForgotPassword() {
       })
     
     
-        const onSubmit = (data) => {
-        // console.log(data)
-        // //register user
-        // login({
-        //     identifier: data.email,
-        //     password: data.password,
-        // })
+      const onSubmit = async (data) => {
+        try{
+          const response = await axiosPublicInstance.post
+          ('/auth/forgot-password/',
+           {
+            email: data.email
+          }
+        )
+        toast.success('Email is sent successfully with password reset link')
+        }catch (err) {
+            console.log(err.response)
+            toast.success('Error in sending email')
+        }
     }
 
     return (

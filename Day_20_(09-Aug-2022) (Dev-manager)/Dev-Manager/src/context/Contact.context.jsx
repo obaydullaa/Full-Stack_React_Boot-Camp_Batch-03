@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useReducer, useState } from "react";
 import contactsReducer from "./reduce";
+import qs from 'qs';
 import { DELETE_CONTACT, UPDATE_CONTACT, ADD_CONTACT, lOAD_CONTACTS } from "./types";
 import { axiosPrivateInstance } from "../config/axios";
 import { formateContact } from "../utils/formateContact";
@@ -92,27 +93,55 @@ const initialContacts = [
   ]
   // create provider
   export const ContactProvider = ({children}) => {
-    
     const [contacts, dispatch] = useReducer(contactsReducer, initialContacts)
     const [loaded, setLoaded] =useState(false)
-    const {user} = useContext(AuthContext)
-    const navigate = useNavigate();
+    const [pageNumber, setPageNumber] = useState(1)
+    const [pageCount, setPageCount] = useState(null)
+    const [trigger, setTrigger] = useState(false)
+    const [searchInput, setSearchInput] = useState('')
 
+    const {token, user} = useContext(AuthContext)
+    const navigate = useNavigate();
+    
+    // console.log(searchInput)
     useEffect(() => {
-      (async () => {
-        await loadedContacts()
-      })()
-    },[])
+      if(token){
+        ;(async () => {
+          await loadedContacts()
+        })()
+      }
+    },[token, pageNumber, trigger, searchInput])
 
     const loadedContacts = async () => {
+      const query = qs.stringify({
+        sort: ['id:desc'],
+        populate: '*',
+        pagination: {
+          page: pageNumber,
+          pageSize: import.meta.env.VITE_PAGE_SIZE,
+        },
+      },
+      {
+        encodeValuesOnly: true,
+      }
+      )
+
      try{
-      const response = await axiosPrivateInstance.get('/contacts?populate=*');
-      const loadedContacts = response.data.data.map(contact => 
+      const response = await axiosPrivateInstance(token).get(
+        `/contacts?${query}`
+      );
+        console.log(response.data)
+        const loadedContacts = response.data.data.map(contact => 
         formateContact(contact)
-        )
+      )
+
+        // console.log(response.data)
         dispatch({type: lOAD_CONTACTS, payload: loadedContacts})
+        //set page count in state
+        setPageCount(response.data.meta.pagination.pageCount)
+
         setLoaded(true)
-      // console.log(loadedContacts)
+      // console.log(response.data)
     
      }catch(err) {
       console.log(err.response)
@@ -121,9 +150,11 @@ const initialContacts = [
 
     const deleteContact = async(id) => {
       try{
-        const response = await axiosPrivateInstance.delete(`/contacts/${id}`)
-        console.log(response.data)
+        const response = await axiosPrivateInstance(token).delete(`/contacts/${id}`)
+        // console.log(response.data)
         dispatch({type: DELETE_CONTACT, payload: response.data.data.id})
+        // triggering delete event
+        setTrigger(!trigger)
         // show toast message 
         toast.success('Contact is deleted successfully')
         // Navigate
@@ -142,7 +173,7 @@ const initialContacts = [
         try{
           //send request to the server
           // successfully response 
-          const response = await axiosPrivateInstance.put(`/contacts/${id}?populate=*`, 
+          const response = await axiosPrivateInstance(token).put(`/contacts/${id}?populate=*`, 
           {
             data: contactToUpdate,
           }
@@ -164,13 +195,24 @@ const initialContacts = [
         //   // author: user.id,  
         //   ...contactData, 
         // }
+        // console.log(contactData)
+        let {file, ...data} = contactData
+        // console.log(file)
+        // console.log(data)
+        const formData = new FormData()
+        formData.append('files.profilePicture', file, file.name)
+        formData.append('data', JSON.stringify(contactData))
+        console.log(data)
         try {
-          const response = await axiosPrivateInstance.post('/contacts?populate=*', {
-            data: contactData,
-          })
+          const response = await axiosPrivateInstance(token).post(
+            "/contacts?populate=*", 
+            formData,
+          );
           const contact = formateContact(response.data.data)
           //dispatch here
           dispatch({type: ADD_CONTACT, payload: contact})
+          // triggering add contact event
+          setTrigger(!trigger)
           //show flash message
           toast.success("Contact is Added Successfully");
           //redirect to contacts
@@ -187,6 +229,10 @@ const initialContacts = [
         deleteContact,
         updateContact,
         addContact,
+        pageCount,
+        pageNumber,
+        setPageNumber,
+        setSearchInput,
     }
 
     return  <ContactContext.Provider value={value}>{children}</ContactContext.Provider>

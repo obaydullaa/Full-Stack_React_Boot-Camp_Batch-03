@@ -12,9 +12,9 @@ export default function Contact({contact}) {
     const {deleteContact} = useContext(ContactContext)
     const {user} = useContext(AuthContext)
 
-    const {id, firstName, lastName, email, profession, gender, image, dateOfBirth, bio} = contact  
+    const {id, firstName, lastName, email, profession, gender, profilePicture, dateOfBirth, bio} = contact  
 
-    const isOwner = user.id === contact.author.data.id;
+    const isOwner = user?.id === contact?.author?.data?.id;
 
     const handleDelete = (id) => {
         deleteContact(id)
@@ -24,7 +24,7 @@ export default function Contact({contact}) {
     <>
         <Card className='mb-4'>
             <div className='d-flex'>
-                <Card.Img className='card-img' src={image} />
+                <Card.Img className='card-img' src={profilePicture?.data?.attributes?.url} />
                     <Card.Body>
                         <Card.Title>
                             <span className='text-dark'>{firstName} {lastName}</span>

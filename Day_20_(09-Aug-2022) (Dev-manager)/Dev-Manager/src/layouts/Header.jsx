@@ -1,14 +1,28 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../context/Auth.context';
-import {NavLink, Link} from 'react-router-dom'
+import {NavLink, Link, useNavigate, Navigate} from 'react-router-dom'
 import {Button, Navbar, Container, Nav, Form, NavDropdown} from 'react-bootstrap';
+import { useState } from 'react';
 
-export default function Header() {
+export default function Header({setSearchInput}) {
     const {logout, user} = useContext(AuthContext);
+
+    const navigate = useNavigate()
+
+    const [text, setText] = useState('')
+
+    const handleSubmit = (evt) => {
+        evt.preventDefault()
+        setSearchInput(text)
+        //navigate to search component
+        setText('')
+        navigate('/search')
+    }
+
   return (
     <>  
         <Navbar bg="light" expand="sm">
-            <Container fluid>
+            <Container>
             <Navbar.Brand to='/' as={Link} className='brand'>Dev Manager</Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">
@@ -35,15 +49,19 @@ export default function Header() {
                     
                     
                 </Nav>
-                <Form className="d-flex">
-                <Form.Control
-                    type="search"
-                    placeholder="Search"
-                    className="me-2"
-                    aria-label="Search"
-                />
-                <Button variant="outline-success">Search</Button>
-                </Form>
+                {user && (
+                    <Form onSubmit={handleSubmit} className="d-flex">
+                        <Form.Control
+                            type="search"
+                            onChange={(evt) => setText(evt.target.value)}
+                            placeholder="Search"
+                            className="me-2"
+                            value={text}
+                            aria-label="Search"
+                        />
+                        <Button type='submit' variant="outline-success">Search</Button>
+                    </Form>
+                )}
             </Navbar.Collapse>
             </Container>
         </Navbar>

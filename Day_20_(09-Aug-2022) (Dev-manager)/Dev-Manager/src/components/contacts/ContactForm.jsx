@@ -31,10 +31,10 @@ const schema = yup.object({
     .required("Bio is Required")
     .min(10, "Bio must be 10 or more in length")
     .max(300, "Bio must be equal or more 300 character"),
-  image: yup
-    .string()
-    .required("Image Url is Required")
-    .url("Must be a valid URL"),
+  // image: yup
+  //   .string()
+  //   .required("Image Url is Required")
+  //   .url("Must be a valid URL"),
 });
 
 function ContactForm({ addContact, contact, updateContact }) {
@@ -48,6 +48,13 @@ function ContactForm({ addContact, contact, updateContact }) {
   //     gender: 'male',
   //     image: '',
   // })
+  const [file, setFile] = useState(null)
+
+  const handleChange = (e) => {
+    setFile(e.target.files[0])
+    
+  }
+
   const {
     register,
     handleSubmit,
@@ -120,10 +127,14 @@ function ContactForm({ addContact, contact, updateContact }) {
     const id = contact?.id;
   //  console.log(data)
    // adding contacts
+   const allData = {
+    ...data,
+    file,
+   }
    if (id) {
      updateContact(data, id);
     } else {
-      addContact(data);
+      addContact(allData);
     }
   };
 
@@ -187,15 +198,27 @@ function ContactForm({ addContact, contact, updateContact }) {
             </Form.Control.Feedback>
           </Col>
         </Form.Group>
-        <FormTextInput
-          name="image"
-          label="Profile Picture"
-          type="url"
-          placeholder="Enter your Profile URL"
-          errors={errors}
-          register={register}
-          defaultValue={image}
-        />
+        
+        <Form.Group as={Row} className="mb-3">
+          <Col sm={3}>
+            <Form.Label htmlFor="profilePicture" column>
+              ProfilePicture:
+            </Form.Label>
+          </Col>
+          <Col sm={9}>
+            <input
+              type="file"
+              accept="image/*"
+              name="profilePicture"
+              id="profilePicture"
+              onChange={handleChange}
+            />
+            <Form.Control.Feedback type="invalid" className="d-block">
+            {errors?.image?.message}
+            </Form.Control.Feedback>
+          </Col>
+        </Form.Group>
+
         <Form.Group as={Row} className="mb-3">
           <Col sm={3}>
             <Form.Label htmlFor="dateOfBirth" column>
@@ -249,7 +272,6 @@ function ContactForm({ addContact, contact, updateContact }) {
           errors={errors}
           register={register}
           defaultValue={bio}
-          as='textarea'
         />
         {/* <Form.Group as={Row} className="mb-3">
           <Col sm={3}>

@@ -37,16 +37,16 @@ module.exports = createCoreController('api::contact.contact', ({strapi}) => ({
         }
     },
 
-    async create(ctx) {
-        try{
-            const {id} = ctx.state.user;
-        ctx.request.body.data.author = id;
-        const response = await super.create(ctx);
-         return response;
-        }catch(err) {
-            ctx.internalServerError('Unknown arrow')
-        }
-    },
+    // async create(ctx) {
+    //     try{
+    //         const {id} = ctx.state.user;
+    //     ctx.request.body.data.author = id;
+    //     const response = await super.create(ctx);
+    //      return response;
+    //     }catch(err) {
+    //         ctx.internalServerError('Unknown arrow')
+    //     }
+    // },
 
 
     async updated(ctx) {

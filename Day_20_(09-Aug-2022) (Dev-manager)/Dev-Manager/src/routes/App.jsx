@@ -21,9 +21,10 @@ import ManagePassword from '../pages/ManagePassword';
 import UserContactList from '../pages/UserContactList';
 import ForgotPassword from '../pages/ForgotPassword';
 import ResetPassword from '../pages/ResetPassword';
+import Search from '../pages/Search';
 
 function App() {
-
+  const [searchInput, setSearchInput] = useState('')
   return (
     <> 
       <ToastContainer
@@ -37,10 +38,7 @@ function App() {
         draggable
         pauseOnHover
         />
-
-
-      <Header/>
-      
+      <Header setSearchInput={setSearchInput} /> 
         <Container style={{width: '800px', margin: '0 auto'}} className='pt-5'> 
           <Routes>
             <Route index element={<Home />} />
@@ -49,6 +47,13 @@ function App() {
             element={
               <PrivateRoute>
                 <Contacts />
+              </PrivateRoute>
+            } />
+            <Route 
+            path='/search'
+            element={
+              <PrivateRoute>
+                <Search searchInput={searchInput}/>
               </PrivateRoute>
             } />
             <Route path='/add-contact' 

@@ -7,7 +7,7 @@ import {Col, ListGroup ,Row, Tab} from 'react-bootstrap';
 function Dashboard() {
   return (
   <>
-    <h2 className='text-center'>User Dashboard</h2>
+    <h2 className='text-center mb-4'>User Dashboard</h2>
     <Tab.Container id="list-group-tabs-example" >
       <Row>
         <Col sm={4}>

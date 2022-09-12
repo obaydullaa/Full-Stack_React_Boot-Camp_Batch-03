@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.7",
+    "@strapi/provider-upload-cloudinary": "^4.3.6",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
+    "qs": "^6.11.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-datepicker": "^4.8.0",
