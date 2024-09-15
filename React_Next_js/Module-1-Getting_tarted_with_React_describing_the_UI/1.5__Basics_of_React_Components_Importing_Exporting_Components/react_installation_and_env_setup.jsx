@@ -25,8 +25,6 @@
 	=========================================
 */
 
-// Gallery.jsx
-
 function Profile() {
     return (
         <img src="https://i.imgur.com/MK3eW3As.jpg" alt="Katherine Johnson" />
@@ -47,14 +45,13 @@ export default function Gallery() {
     );
 }
 
-// main.jsx
+/**
+ * 1.5__Basics_of_React_Components_Importing_Exporting_Components
+ *
+ */
 
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App.jsx";
+// All component functionality tak this component
+// import Gallery from "./components/Gallery";  // No need to .jsx or Extension
 
-createRoot(document.getElementById("root")).render(
-    <StrictMode>
-        <App />
-    </StrictMode>
-);
+//import Gallery from "./components/Gallery";  // Default import Component
+//export default function Gallery() {  // Default Export Component
