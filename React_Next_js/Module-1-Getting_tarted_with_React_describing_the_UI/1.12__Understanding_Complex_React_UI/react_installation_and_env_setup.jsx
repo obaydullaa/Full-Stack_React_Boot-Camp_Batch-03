@@ -341,3 +341,19 @@ export default function TeaSet() {
 
 
 // Very Important : When possible, try to express your logic with rendering alone. You’ll be surprised how far this can take you!
+
+
+/**
+ * 1.12 Understanding Complex React UI
+ */
+
+
+// Recap
+
+//     Trees are a common way to represent the relationship between entities. They are often used to model UI.
+//     Render trees represent the nested relationship between React components across a single render.
+//     With conditional rendering, the render tree may change across different renders. With different prop values, components may render different children components.
+//     Render trees help identify what the top-level and leaf components are. Top-level components affect the rendering performance of all components beneath them and leaf components are often re-rendered frequently. Identifying them is useful for understanding and debugging rendering performance.
+//     Dependency trees represent the module dependencies in a React app.
+//     Dependency trees are used by build tools to bundle the necessary code to ship an app.
+//     Dependency trees are useful for debugging large bundle sizes that slow time to paint and expose opportunities for optimizing what code is bundled.
