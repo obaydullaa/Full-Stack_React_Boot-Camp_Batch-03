@@ -74,6 +74,20 @@ export default function Game() {
         setHistory([...history, nextSquares]);
     }
 
+    const moves = history.map((squares, move) => {
+        let description;
+        if(move > 0 ) {
+            description = `Go the the move # ${move}`;
+        } else {
+            description = `Go the start the game`;
+        }
+        return (
+            <li>
+                <button>{description}</button>
+            </li>   
+        )
+    })
+
     return (
         <div className="flex justify-center p-4">
             <div className="mr-16">
@@ -85,7 +99,7 @@ export default function Game() {
             </div>
             <div>
                 <ol className="border border-gray-400 p-1 text-lg">
-                    {/* Okay*/}
+                    {moves}
                 </ol>
             </div>
         </div>
