@@ -97,7 +97,7 @@ export default function Game() {
     })
 
     return (
-        <div className="flex justify-center p-4">
+        <div className="flex justify-center p-4 mt-10">
             <div className="mr-16">
                 <Board
                     xIsNext={xIsNext}
@@ -106,7 +106,7 @@ export default function Game() {
                 />
             </div>
             <div>
-                <ol className="border border-gray-400 rounded-md py-3 px-5  text-lg">
+                <ol className="border border-gray-700 rounded-md py-3 px-5  text-lg">
                     {moves}
                 </ol>
             </div>
