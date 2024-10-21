@@ -48,4 +48,40 @@
 //       </div>
 //     );
 //   }
+
+// Preventing default behavior
+//==============================================
+
+// export default function Signup() {
+//     return (
+//         <form
+//             onSubmit={(e) => {
+//                 e.preventDefault();
+//                 console.log("Submitting!");
+//             }}
+//         >
+//             <input />
+//             <button>Send</button>
+//         </form>
+//     );
+// }
+
+
+
+
+// export default function Signup() {
+//     const handleSubmit = (e) => {
+//         e.preventDefault();
+//         console.log("Thank For this");
+//     }
+//     return (
+//         <form
+//             onSubmit={handleSubmit}
+//         >
+//             <input />
+//             <button>Send</button>
+//         </form>
+//     );
+// }
+
   

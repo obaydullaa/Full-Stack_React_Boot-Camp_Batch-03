@@ -110,35 +110,67 @@
 //     );
 // }
 
-
-// Stopping propagation 
+// Stopping propagation
 //==============================================
 
+// function Button({ onSmash, children }) {
+//     return (
+//       <button onClick={(e) => {
+//         e.stopPropagation();
+//         onSmash();
+//       }}
+//       >
+//         {children}
+//       </button>
+//     );
+//   }
 
-function Button({ onSmash, children }) {
+//   export default function Toolbar() {
+//     return (
+//       <div className="Toolbar" onClick={() => {
+//         console.log('You clicked on the toolbar!');
+//       }}>
+//         <Button onSmash={() => console.log('Playing!')}>
+//           Play Movie
+//         </Button>
+//         <Button onSmash={() => console.log('Uploading!')}>
+//           Upload Image
+//         </Button>
+//       </div>
+//     );
+//   }
+
+// Preventing default behavior
+//==============================================
+
+// export default function Signup() {
+//     return (
+//         <form
+//             onSubmit={(e) => {
+//                 e.preventDefault();
+//                 console.log("Submitting!");
+//             }}
+//         >
+//             <input />
+//             <button>Send</button>
+//         </form>
+//     );
+// }
+
+
+
+
+export default function Signup() {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("Thank For this");
+    }
     return (
-      <button onClick={(e) => {
-        e.stopPropagation();
-        onSmash();
-      }}
-      >
-        {children}
-      </button>
+        <form
+            onSubmit={handleSubmit}
+        >
+            <input />
+            <button>Send</button>
+        </form>
     );
-  }
-  
-  export default function Toolbar() {
-    return (
-      <div className="Toolbar" onClick={() => {
-        console.log('You clicked on the toolbar!');
-      }}>
-        <Button onSmash={() => console.log('Playing!')}>
-          Play Movie
-        </Button>
-        <Button onSmash={() => console.log('Uploading!')}>
-          Upload Image
-        </Button>
-      </div>
-    );
-  }
-  
+}
