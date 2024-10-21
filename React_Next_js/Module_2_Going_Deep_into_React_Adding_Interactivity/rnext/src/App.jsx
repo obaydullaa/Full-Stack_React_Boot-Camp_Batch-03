@@ -71,24 +71,43 @@
 //     );
 // }
 
-export default function App() {
-    return (
-        <Toolbar
-            onPlayMovie={() => alert("Playing!")}
-            onUploadImage={() => alert("Uploading!")}
-        />
-    );
-}
+// export default function App() {
+//     return (
+//         <Toolbar
+//             onPlayMovie={() => alert("Playing!")}
+//             onUploadImage={() => alert("Uploading!")}
+//         />
+//     );
+// }
 
-function Toolbar({ onPlayMovie, onUploadImage }) {
-    return (
-        <div>
-            <Button onSmash={onPlayMovie}>Play Movie </Button>
-            <Button onSmash={onUploadImage}>Upload Image</Button>
-        </div>
-    );
-}
+// function Toolbar({ onPlayMovie, onUploadImage }) {
+//     return (
+//         <div>
+//             <Button onSmash={onPlayMovie}>Play Movie </Button>
+//             <Button onSmash={onUploadImage}>Upload Image</Button>
+//         </div>
+//     );
+// }
 
-function Button({ onSmash, children }) {
-    return <button onClick={onSmash}>{children}</button>;
-}
+// function Button({ onSmash, children }) {
+//     return <button onClick={onSmash}>{children}</button>;
+// }
+
+// Event propagation
+//==============================================
+
+// export default function Toolbar() {
+//     return (
+//         <div
+//             className="Toolbar"
+//             onClick={() => {
+//                 console.log("You clicked on the toolbar!");
+//             }}
+//         >
+//             <button onClick={() => console.log("Playing!")}>Play Movie</button>
+//             <button onClick={() => console.log("Uploading!")}>Upload Image</button>
+//         </div>
+//     );
+// }
+
+
