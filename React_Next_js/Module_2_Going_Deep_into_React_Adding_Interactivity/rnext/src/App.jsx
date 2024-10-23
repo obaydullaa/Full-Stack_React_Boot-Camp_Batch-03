@@ -160,17 +160,37 @@
 
 
 
-export default function Signup() {
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Thank For this");
-    }
-    return (
-        <form
-            onSubmit={handleSubmit}
-        >
-            <input />
-            <button>Send</button>
-        </form>
-    );
+import { sculptureList } from './data.js';
+
+export default function Gallery() {
+  let index = 0;
+
+  function handleClick() {
+    index = index + 1;
+    console.log(index)
+  }
+
+  let sculpture = sculptureList[index];
+  return (
+    <>
+      <button onClick={handleClick}>
+        Next
+      </button>
+      <h2>
+        <i>{sculpture.name} </i> 
+        by {sculpture.artist}
+      </h2>
+      <h3>  
+        ({index + 1} of {sculptureList.length})
+      </h3>
+      <img 
+        src={sculpture.url} 
+        alt={sculpture.alt}
+      />
+      <p>
+        {sculpture.description}
+      </p>
+    </>
+  );
 }
+
