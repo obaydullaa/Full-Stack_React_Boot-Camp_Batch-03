@@ -84,13 +84,6 @@
 //     );
 // }
 
-  
-
-
-
-
-
-
 
 // Recap
 // You can handle events by passing a function as a prop to an element like <button>.
