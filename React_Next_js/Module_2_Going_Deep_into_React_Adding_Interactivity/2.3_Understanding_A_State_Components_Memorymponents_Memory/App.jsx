@@ -1,97 +1,37 @@
-// Event propagation
-//==============================================
+// State: A Component's Memory
+//=================================================
 
-// export default function Toolbar() {
-//     return (
-//         <div
-//             className="Toolbar"
-//             onClick={() => {
-//                 console.log("You clicked on the toolbar!");
-//             }}
-//         >
-//             <button onClick={() => console.log("Playing!")}>Play Movie</button>
-//             <button onClick={() => console.log("Uploading!")}>
-//                 Upload Image
-//             </button>
-//         </div>
-//     );
-// }
+// import { sculptureList } from './data.js';
+// import { useState } from "react";
 
+// export default function Gallery() {
+//    const [index, setIndex] = useState(0);
 
-// Stopping propagation 
-//==============================================
+//   function handleClick() {
+//     // index = index + 1;
+//      setIndex(index + 1);
+//   }
 
-
-// function Button({ onSmash, children }) {
-//     return (
-//       <button onClick={(e) => {
-//         e.stopPropagation();
-//         onSmash();
-//       }}
-//       >
-//         {children}
+//   let sculpture = sculptureList[index];
+//   return (
+//     <>
+//       <button onClick={handleClick}>
+//         Next
 //       </button>
-//     );
-//   }
-  
-//   export default function Toolbar() {
-//     return (
-//       <div className="Toolbar" onClick={() => {
-//         console.log('You clicked on the toolbar!');
-//       }}>
-//         <Button onSmash={() => console.log('Playing!')}>
-//           Play Movie
-//         </Button>
-//         <Button onSmash={() => console.log('Uploading!')}>
-//           Upload Image
-//         </Button>
-//       </div>
-//     );
-//   }
-
-// Preventing default behavior
-//==============================================
-
-// export default function Signup() {
-//     return (
-//         <form
-//             onSubmit={(e) => {
-//                 e.preventDefault();
-//                 console.log("Submitting!");
-//             }}
-//         >
-//             <input />
-//             <button>Send</button>
-//         </form>
-//     );
+//       <h2>
+//         <i>{sculpture.name} </i> 
+//         by {sculpture.artist}
+//       </h2>
+//       <h3>  
+//         ({index + 1} of {sculptureList.length})
+//       </h3>
+//       <img 
+//         src={sculpture.url} 
+//         alt={sculpture.alt}
+//       />
+//       <p>
+//         {sculpture.description}
+//       </p>
+//     </>
+//   );
 // }
-
-
-
-
-// export default function Signup() {
-//     const handleSubmit = (e) => {
-//         e.preventDefault();
-//         console.log("Thank For this");
-//     }
-//     return (
-//         <form
-//             onSubmit={handleSubmit}
-//         >
-//             <input />
-//             <button>Send</button>
-//         </form>
-//     );
-// }
-
-
-// Recap
-// You can handle events by passing a function as a prop to an element like <button>.
-// Event handlers must be passed, not called! onClick={handleClick}, not onClick={handleClick()}.
-// You can define an event handler function separately or inline.
-// Event handlers are defined inside a component, so they can access props.
-// You can declare an event handler in a parent and pass it as a prop to a child.
-// You can define your own event handler props with application-specific names.
-// Events propagate upwards. Call e.stopPropagation() on the first argument to prevent that.
-// Events may have unwanted default browser behavior. Call e.preventDefault() to prevent that.
-// Explicitly calling an event handler prop from a child handler is a good alternative to propagation.
