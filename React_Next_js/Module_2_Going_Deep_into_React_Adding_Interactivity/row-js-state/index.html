@@ -6,20 +6,27 @@
         <title>Row js state</title>
     </head>
     <body>
-        <button id="nextButton">Next</button>
-        <h3 id="header"></h3>
-        <button id="moreButton"></button>
-        <p id="description"></p>
-        <img id="image" />
-
+        <div class="container-wrapper">
+            <div class="wrap">
+                <button id="nextButton">Next</button>
+                <h3 id="header"></h3>
+                <button id="moreButton"></button>
+                <p id="description"></p>
+                <img id="image" />
+            </div>
+        </div>
         <style>
+            .container-wrapper {
+                margin: 50px auto 0px;
+                display: flex;
+                justify-content: center;
+                width: 500px;
+            }
             * {
                 box-sizing: border-box;
             }
             body {
                 font-family: sans-serif;
-                margin: 20px;
-                padding: 0;
             }
             button {
                 display: block;
