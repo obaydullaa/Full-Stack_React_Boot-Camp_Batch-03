@@ -7,7 +7,7 @@
 	3.  Project Create with vite
 	npm create vite@latest
 		proeject name:  .
-		elect a framwork: > react
+		select a framwork: > react
 		select a variant: > Javascript
 		
 	Run the project: ->  npm run dev
