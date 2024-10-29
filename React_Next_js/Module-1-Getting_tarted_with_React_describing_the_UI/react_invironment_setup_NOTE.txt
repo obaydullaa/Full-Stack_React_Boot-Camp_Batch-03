@@ -5,6 +5,8 @@
 	proeject name:  .
 	elect a framwork: > react
 	select a variant: > Javascript
+
+	install npm: npm i
 	
 Run the project: ->  npm run dev
 
