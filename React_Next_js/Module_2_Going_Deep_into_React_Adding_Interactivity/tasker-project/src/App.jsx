@@ -1,13 +1,9 @@
+import Header from "./Header";
 
-import './App.css'
-
-function App() {
-
-  return (
-    <>
-      <h2 className="text-red-700 text-4xl mt-8 font-bold">Welcome To Tasker</h2>
-    </>
-  )
+export default function App() {
+    return (
+        <>
+          <Header />
+        </>
+    );
 }
-
-export default App
