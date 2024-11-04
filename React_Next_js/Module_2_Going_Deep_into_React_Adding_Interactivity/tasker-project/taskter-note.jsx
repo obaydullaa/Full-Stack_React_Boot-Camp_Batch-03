@@ -3,7 +3,7 @@ Feature List
 - Have a Header - Done 
 - Have a Footer - Done 
 - Have a Hero Section - Done 
-- List the Tasks - Done 
+- List the Tasks & Install react icon - Done 
 - Add A Task - 
 - Edit a Task -
 - Delete A Task - 
