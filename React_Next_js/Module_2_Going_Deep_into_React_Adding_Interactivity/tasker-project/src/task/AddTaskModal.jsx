@@ -9,9 +9,9 @@ export default function AddTaskModal(){
           Add New Task
         </h2>
   
-        <!-- inputs -->
+      
         <div className="space-y-9 text-white lg:space-y-10">
-          <!-- title -->
+         
           <div className="space-y-2 lg:space-y-3">
             <label for="title">Title</label>
             <input
@@ -22,7 +22,7 @@ export default function AddTaskModal(){
               required
             />
           </div>
-          <!-- description -->
+         
           <div className="space-y-2 lg:space-y-3">
             <label for="description">Description</label>
             <textarea
@@ -33,7 +33,7 @@ export default function AddTaskModal(){
               required
             ></textarea>
           </div>
-          <!-- input group -->
+         
           <div
             className="grid-cols-2 gap-x-4 max-md:space-y-9 md:grid lg:gap-x-10 xl:gap-x-20"
           >
