@@ -129,3 +129,72 @@ export default function TaskList({ tasks }) {
         </div>
     );
 }
+
+
+TaskBoard.jsx 
+============================
+Modal add and Open 
+import { useState } from "react";
+
+import SearchTask from "./SearchTask";
+import TaskActions from "./TaskActions";
+import TaskList from "./TaskList";
+import AddTaskModal from "./AddTaskModal";
+
+export default function TaskBoard() {
+    const defaultTask = {
+        'id': crypto.randomUUID(),
+        'title': "Learn React",
+        'descriptions': "I want to learn React such than i can treat it like my salve and make it do whatever I want to do",
+        'tags': ["web", "react", "js"],
+        'priority': "Low",
+        'isFavorite': true,
+    };
+
+    const [tasks, setTasks] = useState([defaultTask]);
+    const [showAddModal, setShowAddModal] = useState(false);
+
+    function handleAddTask() {
+        console.log("Adding a Task")
+    }
+
+    return (
+        <section className="mb-20" id="tasks">
+            
+           { showAddModal && <AddTaskModal />}
+
+            <div className="container">
+                <div className="p-2 flex justify-end">
+                    <SearchTask />
+                </div>
+
+                <div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
+                    
+                    <TaskActions onAddClick={() => setShowAddModal(true)} />
+
+                    <TaskList tasks={tasks} />
+                </div>
+            </div>
+        </section>
+    );
+}
+
+
+TaskActions.jsx 
+===================================
+export default function TaskActions({onAddClick}) {
+    return (
+        <div className="mb-14 items-center justify-between sm:flex">
+            <h2 className="text-2xl font-semibold max-sm:mb-4">Your Tasks</h2>
+            <div className="flex items-center space-x-5">
+                <button className="rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold"
+                onClick={onAddClick}>
+                    Add Task
+                </button>
+                <button className="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold">
+                    Delete All
+                </button>
+            </div>
+        </div>
+    );
+}
