@@ -1,6 +1,6 @@
 import { FaStar } from "react-icons/fa6";
 
-export default function TaskList({ tasks }) {
+export default function TaskList({ tasks  }) {
     return (
         <div className="overflow-auto">
             <table className="table-fixed overflow-auto xl:w-full">
@@ -40,7 +40,7 @@ export default function TaskList({ tasks }) {
                             </td>
                             <td>{task.title}</td>
                             <td>
-                                <div>{task.descriptions}</div>
+                                <div>{task.description}</div>
                             </td>
                             <td>
                                 <ul className="flex justify-center gap-1.5 flex-wrap">

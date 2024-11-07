@@ -1,4 +1,29 @@
-export default function AddTaskModal() {
+import { useState } from "react";
+
+export default function AddTaskModal({onSave}) {
+    const [task, setTasks] = useState({
+        id: crypto.randomUUID(),
+        title: "",
+        description: "",
+        tags: [],
+        priority: "",
+        isFavorite: false,
+    });
+
+    const handleChange = (evt) => {
+        const name = evt.target.name;
+        let value = evt.target.value;
+
+        if(name === "tags") {
+            value = value.split(",");
+        }
+
+       setTasks({
+        ...task,
+        [name] : value,
+       })
+    }
+
     return (
         <>
             <div className="bg-black bg-opacity-70 h-full w-full z-10 absolute top-0 left-0"></div>
@@ -15,6 +40,8 @@ export default function AddTaskModal() {
                             type="text"
                             name="title"
                             id="title"
+                            value={task.title}
+                            onChange={handleChange}
                             required
                         />
                     </div>
@@ -26,6 +53,8 @@ export default function AddTaskModal() {
                             type="text"
                             name="description"
                             id="description"
+                            value={tasks.description}
+                            onChange={handleChange}
                             required
                         ></textarea>
                     </div>
@@ -38,6 +67,8 @@ export default function AddTaskModal() {
                                 type="text"
                                 name="tags"
                                 id="tags"
+                                value={tasks.tags}
+                                onChange={handleChange}
                                 required
                             />
                         </div>
@@ -48,6 +79,8 @@ export default function AddTaskModal() {
                                 className="block w-full cursor-pointer rounded-md bg-[#2D323F] px-3 py-2.5"
                                 name="priority"
                                 id="priority"
+                                value={tasks.priority}
+                                onChange={handleChange}
                                 required
                             >
                                 <option value="">Select Priority</option>
@@ -62,8 +95,9 @@ export default function AddTaskModal() {
                     <button
                         type="submit"
                         className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80"
+                        onClick={() => onSave(task)}
                     >
-                        Create new Task
+                       Save
                     </button>
                 </div>
             </form>

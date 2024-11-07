@@ -9,7 +9,7 @@ export default function TaskBoard() {
     const defaultTask = {
         'id': crypto.randomUUID(),
         'title': "Learn React",
-        'descriptions': "I want to learn React such than i can treat it like my salve and make it do whatever I want to do",
+        'description': "I want to learn React such than i can treat it like my salve and make it do whatever I want to do",
         'tags': ["web", "react", "js"],
         'priority': "Low",
         'isFavorite': true,
@@ -18,14 +18,14 @@ export default function TaskBoard() {
     const [tasks, setTasks] = useState([defaultTask]);
     const [showAddModal, setShowAddModal] = useState(false);
 
-    function handleAddTask() {
-        console.log("Adding a Task")
+    function handleAddTask(task) {
+        console.log("Adding a Task", task);
     }
 
     return (
         <section className="mb-20" id="tasks">
             
-           { showAddModal && <AddTaskModal />}
+           { showAddModal && <AddTaskModal onSave={handleAddTask} />}
 
             <div className="container">
                 <div className="p-2 flex justify-end">
